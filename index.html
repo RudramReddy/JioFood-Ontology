@@ -72,7 +72,11 @@ header::after {
   color: var(--gold2);
   letter-spacing: -0.3px;
   white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity .15s;
 }
+.wordmark:hover { opacity: 0.8; }
 .wordmark span { color: var(--cream); font-style: italic; }
 
 .h-divider { width: 1px; height: 24px; background: var(--border2); }
@@ -408,7 +412,7 @@ header::after {
 <body>
 
 <header>
-  <div class="wordmark">Jio<span>Food</span> &nbsp;·&nbsp; Catalog Ontology</div>
+  <div class="wordmark" onclick="resetHome()" title="Back to home">Jio<span>Food</span> &nbsp;·&nbsp; Catalog Ontology</div>
   <div class="h-divider"></div>
   <div class="h-stats">
     <div class="h-stat"><div class="n">5</div><div class="l">Levels</div></div>
@@ -718,7 +722,57 @@ function doSearch(q) {
       </div>`).join('');
 }
 
+// ── Reset to home ────────────────────────────
+function resetHome() {
+  // Clear search
+  searchQ = '';
+  document.getElementById('searchBox').value = '';
+
+  // Reset diet filters
+  activeDiets.clear();
+  document.querySelectorAll('.diet-btn').forEach(b => b.classList.remove('on'));
+
+  // Reset selection state
+  selL2 = null; selL4 = null; selL4Diet = null;
+
+  // Deselect all sidebar rows
+  document.querySelectorAll('.l2-row').forEach(r => r.classList.remove('active'));
+
+  // Hide search panel, restore p2 and p3
+  const sp = document.getElementById('searchPanel');
+  sp.classList.remove('vis');
+  sp.style.display = 'none';
+  sp.innerHTML = '';
+  document.getElementById('p2').style.display = '';
+  document.getElementById('p3').style.display = '';
+
+  // Reset result tag
+  const tag = document.getElementById('resultTag');
+  tag.classList.remove('vis');
+  tag.textContent = '';
+
+  // Reset p2 to empty state
+  document.getElementById('p2').innerHTML = `<div class="p2-empty">
+    <div class="arrow">←</div>
+    <p>Select a category<br>to explore sub-groups</p>
+  </div>`;
+
+  // Reset p3 to welcome state
+  document.getElementById('p3').innerHTML = `<div class="p3-welcome">
+    <div class="big">The <em>complete</em> food catalog<br>taxonomy for JioFood</div>
+    <div class="sub">A 5-level ontology covering 22 categories, 148 sub-groups, and 1,652 orderable dishes — structured for search, filtering, and platform-wide consistency.</div>
+    <div class="ontology-diagram">
+      <div class="od-level l1"><div class="od-tag">L 1</div><div class="od-name">Platform</div><div class="od-desc">Root node</div><div class="od-example">JioFood</div></div>
+      <div class="od-level l2"><div class="od-tag">L 2</div><div class="od-name">Category</div><div class="od-desc">Primary navigation</div><div class="od-example">Main Course · Starters · Rice & Biryani</div></div>
+      <div class="od-level l3"><div class="od-tag">L 3</div><div class="od-name">Diet Type</div><div class="od-desc">FSSAI classification</div><div class="od-example">Veg · Non-Veg · Egg</div></div>
+      <div class="od-level l4"><div class="od-tag">L 4</div><div class="od-name">Sub-Group</div><div class="od-desc">Protein / cuisine</div><div class="od-example">Paneer Dishes · Chicken Curries</div></div>
+      <div class="od-level l5"><div class="od-tag">L 5</div><div class="od-name">Dish</div><div class="od-desc">Orderable item</div><div class="od-example">Butter Chicken · Dal Makhani</div></div>
+    </div>
+  </div>`;
+}
+
 buildL2();
 </script>
 </body>
 </html>
+Done
