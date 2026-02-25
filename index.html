@@ -2,157 +2,204 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>JioFood · Catalog Ontology</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg0: #0c0a07; --bg1: #131009; --bg2: #1a1610; --bg3: #221d14;
-  --border: #2e2718; --border2: #3d3420;
-  --gold: #d4920a; --gold2: #f0b429; --gold3: #ffd97a;
-  --cream: #f5edd8; --cream2: #c9b896;
-  --muted: #7a6d54; --muted2: #5a5040;
-  --veg: #4ade80; --veg-bg: rgba(74,222,128,0.08); --veg-border: rgba(74,222,128,0.25);
-  --nv: #f87171;  --nv-bg: rgba(248,113,113,0.08);  --nv-border: rgba(248,113,113,0.25);
-  --egg: #fbbf24; --egg-bg: rgba(251,191,36,0.08);  --egg-border: rgba(251,191,36,0.25);
-  --na: #94a3b8;  --na-bg: rgba(148,163,184,0.08);  --na-border: rgba(148,163,184,0.2);
+  --bg0:#0c0a07; --bg1:#131009; --bg2:#1a1610; --bg3:#221d14;
+  --border:#2e2718; --border2:#3d3420;
+  --gold:#d4920a; --gold2:#f0b429;
+  --cream:#f5edd8; --cream2:#c9b896;
+  --muted:#7a6d54; --muted2:#5a5040;
+  --veg:#4ade80; --veg-bg:rgba(74,222,128,0.08); --veg-border:rgba(74,222,128,0.25);
+  --nv:#f87171;  --nv-bg:rgba(248,113,113,0.08);  --nv-border:rgba(248,113,113,0.25);
+  --egg:#fbbf24; --egg-bg:rgba(251,191,36,0.08);  --egg-border:rgba(251,191,36,0.25);
+  --na:#94a3b8;  --na-bg:rgba(148,163,184,0.08);  --na-border:rgba(148,163,184,0.2);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background:var(--bg0); color:var(--cream); font-family:'Outfit',sans-serif; font-weight:300; height:100vh; overflow:hidden; display:flex; flex-direction:column; }
-
-/* HEADER */
-header { background:var(--bg1); border-bottom:1px solid var(--border); padding:0 28px; height:56px; display:flex; align-items:center; gap:20px; flex-shrink:0; position:relative; }
-header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:0.4; }
-.wordmark { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--gold2); letter-spacing:-0.3px; white-space:nowrap; cursor:pointer; user-select:none; transition:opacity .15s; }
-.wordmark:hover { opacity:0.8; }
-.wordmark span { color:var(--cream); font-style:italic; }
-.h-divider { width:1px; height:24px; background:var(--border2); }
-.h-stats { display:flex; gap:24px; }
-.h-stat { display:flex; flex-direction:column; align-items:center; }
-.h-stat .n { font-family:'Playfair Display',serif; font-size:16px; color:var(--gold2); line-height:1; }
-.h-stat .l { font-size:9px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:1px; }
-.h-search { margin-left:auto; position:relative; width:280px; }
-.h-search input { width:100%; background:var(--bg2); border:1px solid var(--border2); border-radius:6px; padding:7px 12px 7px 34px; color:var(--cream); font-family:'Outfit',sans-serif; font-size:12px; font-weight:300; outline:none; transition:border-color .2s; }
-.h-search input:focus { border-color:var(--gold); }
-.h-search input::placeholder { color:var(--muted); }
-.h-search .icon { position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:13px; pointer-events:none; }
-
-/* FILTER BAR */
-.filter-bar { background:var(--bg1); border-bottom:1px solid var(--border); padding:0 28px; height:38px; display:flex; align-items:center; gap:8px; flex-shrink:0; }
-.filter-label { font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-right:4px; }
-.diet-btn { display:flex; align-items:center; gap:5px; padding:4px 11px; border-radius:20px; border:1px solid transparent; cursor:pointer; font-family:'Outfit',sans-serif; font-size:11px; font-weight:500; transition:all .15s; background:transparent; }
-.diet-btn.veg  { border-color:var(--veg-border); color:var(--veg); }
-.diet-btn.nv   { border-color:var(--nv-border); color:var(--nv); }
-.diet-btn.egg  { border-color:var(--egg-border); color:var(--egg); }
-.diet-btn.veg.on  { background:var(--veg-bg); }
-.diet-btn.nv.on   { background:var(--nv-bg); }
-.diet-btn.egg.on  { background:var(--egg-bg); }
-.diet-dot { width:7px; height:7px; border-radius:50%; }
-.diet-btn.veg .diet-dot { background:var(--veg); }
-.diet-btn.nv  .diet-dot { background:var(--nv); }
-.diet-btn.egg .diet-dot { background:var(--egg); }
-.result-tag { margin-left:auto; font-size:11px; color:var(--muted); display:none; }
-.result-tag.vis { display:block; }
-
-/* BODY */
-.body { display:flex; flex:1; overflow:hidden; }
-
-/* PANEL 1 */
-.p1 { width:210px; flex-shrink:0; border-right:1px solid var(--border); overflow-y:auto; background:var(--bg1); padding:8px 0; }
-.p1::-webkit-scrollbar { width:3px; }
-.p1::-webkit-scrollbar-thumb { background:var(--border2); border-radius:3px; }
-.p1-section-label { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted2); padding:12px 16px 5px; }
-.l2-row { display:flex; align-items:center; justify-content:space-between; padding:8px 16px; cursor:pointer; border-left:2px solid transparent; transition:all .15s; gap:8px; }
-.l2-row:hover { background:var(--bg2); border-left-color:var(--border2); }
-.l2-row.active { background:var(--bg2); border-left-color:var(--gold); }
-.l2-row .name { font-size:12px; font-weight:400; color:var(--cream2); line-height:1.3; flex:1; transition:color .15s; }
-.l2-row:hover .name, .l2-row.active .name { color:var(--cream); }
-.l2-row .cnt { font-size:9px; color:var(--muted); background:var(--bg3); padding:1px 6px; border-radius:8px; flex-shrink:0; transition:all .15s; }
-.l2-row.active .cnt { background:rgba(212,146,10,0.2); color:var(--gold2); }
-
-/* PANEL 2 */
-.p2 { width:260px; flex-shrink:0; border-right:1px solid var(--border); overflow-y:auto; background:var(--bg0); }
-.p2::-webkit-scrollbar { width:3px; }
-.p2::-webkit-scrollbar-thumb { background:var(--border2); border-radius:3px; }
-.p2-header { padding:16px 16px 10px; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:5; background:var(--bg0); }
-.p2-title { font-family:'Playfair Display',serif; font-size:15px; color:var(--cream); letter-spacing:-0.2px; line-height:1.3; }
-.p2-sub { font-size:10px; color:var(--muted); margin-top:2px; }
-.p2-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:40px 20px; text-align:center; color:var(--muted2); }
-.p2-empty .arrow { font-size:28px; margin-bottom:10px; opacity:0.4; }
-.p2-empty p { font-size:12px; line-height:1.6; }
-.l3-section { padding:10px 0 4px; }
-.l3-label { display:flex; align-items:center; gap:6px; padding:5px 16px; }
-.l3-pip { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-.l3-name { font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
-.l3-name.veg { color:var(--veg); } .l3-name.nv { color:var(--nv); } .l3-name.egg { color:var(--egg); } .l3-name.na { color:var(--na); }
-.l4-row { display:flex; align-items:center; justify-content:space-between; padding:7px 16px 7px 30px; cursor:pointer; transition:all .15s; border-left:2px solid transparent; gap:6px; }
-.l4-row:hover { background:var(--bg2); }
-.l4-row.active { background:var(--bg2); border-left-color:var(--gold); }
-.l4-row .l4-name { font-size:11px; font-weight:400; color:var(--cream2); flex:1; line-height:1.3; }
-.l4-row:hover .l4-name, .l4-row.active .l4-name { color:var(--cream); }
-.l4-row .l4-cnt { font-size:9px; color:var(--muted); background:var(--bg3); padding:1px 6px; border-radius:8px; flex-shrink:0; }
-.l4-row.active .l4-cnt { background:rgba(212,146,10,0.2); color:var(--gold2); }
-
-/* PANEL 3 */
-.p3 { flex:1; overflow-y:auto; background:var(--bg0); }
-.p3::-webkit-scrollbar { width:4px; }
-.p3::-webkit-scrollbar-thumb { background:var(--border2); border-radius:4px; }
-.p3-welcome { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100%; padding:48px 40px; text-align:center; }
-.p3-welcome .big { font-family:'Playfair Display',serif; font-size:32px; color:var(--cream); letter-spacing:-0.5px; line-height:1.2; margin-bottom:10px; }
-.p3-welcome .big em { color:var(--gold2); font-style:italic; }
-.p3-welcome .sub { font-size:13px; color:var(--muted); max-width:420px; line-height:1.7; margin-bottom:36px; }
-.ontology-diagram { display:flex; align-items:stretch; background:var(--bg2); border:1px solid var(--border2); border-radius:12px; overflow:hidden; width:100%; max-width:640px; text-align:left; }
-.od-level { flex:1; padding:18px 14px; border-right:1px solid var(--border); position:relative; }
-.od-level:last-child { border-right:none; }
-.od-level::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
-.od-level.l1::before { background:#94a3b8; } .od-level.l2::before { background:var(--gold2); }
-.od-level.l3::before { background:#34d399; } .od-level.l4::before { background:#60a5fa; }
-.od-level.l5::before { background:#f472b6; }
-.od-tag { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
-.od-name { font-size:12px; font-weight:600; color:var(--cream); margin-bottom:4px; }
-.od-desc { font-size:10px; color:var(--muted); line-height:1.5; }
-.od-example { font-size:9px; color:var(--muted2); margin-top:6px; font-style:italic; line-height:1.5; }
-.p3-header { padding:16px 24px 12px; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:5; background:var(--bg0); display:flex; align-items:center; justify-content:space-between; gap:16px; }
-.p3-title { font-family:'Playfair Display',serif; font-size:16px; color:var(--cream); letter-spacing:-0.2px; }
-.p3-meta { font-size:11px; color:var(--muted); margin-top:1px; }
-.p3-diet-badge { padding:3px 10px; border-radius:12px; font-size:10px; font-weight:500; display:flex; align-items:center; gap:5px; border:1px solid transparent; }
-.p3-diet-badge.veg  { background:var(--veg-bg);  border-color:var(--veg-border);  color:var(--veg); }
-.p3-diet-badge.nv   { background:var(--nv-bg);   border-color:var(--nv-border);   color:var(--nv); }
-.p3-diet-badge.egg  { background:var(--egg-bg);  border-color:var(--egg-border);  color:var(--egg); }
-.p3-diet-badge.na   { background:var(--na-bg);   border-color:var(--na-border);   color:var(--na); }
-.dish-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px; padding:16px 24px 24px; }
-.dish-card { background:var(--bg1); border:1px solid var(--border); border-radius:8px; padding:10px 12px; display:flex; align-items:center; gap:8px; transition:all .15s; animation:fadeUp .25s ease both; }
-.dish-card:hover { background:var(--bg2); border-color:var(--border2); transform:translateY(-1px); }
-@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-.dish-card .d-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
-.dish-card .d-name { font-size:11px; font-weight:400; color:var(--cream2); line-height:1.35; }
-.dish-card:hover .d-name { color:var(--cream); }
-
-/* SEARCH */
-.search-panel { display:none; flex:1; overflow-y:auto; padding:20px 24px; background:var(--bg0); }
-.search-panel.vis { display:block; }
-.search-panel::-webkit-scrollbar { width:4px; }
-.search-panel::-webkit-scrollbar-thumb { background:var(--border2); border-radius:4px; }
-.sr-title { font-family:'Playfair Display',serif; font-size:18px; color:var(--cream); margin-bottom:16px; }
-.sr-title em { color:var(--gold2); font-style:italic; }
-.sr-item { background:var(--bg1); border:1px solid var(--border); border-radius:8px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; transition:all .15s; animation:fadeUp .2s ease both; }
-.sr-item:hover { background:var(--bg2); border-color:var(--border2); }
-.sr-item .sr-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-.sr-item .sr-dish { font-size:12px; font-weight:500; color:var(--cream); min-width:180px; }
-.sr-item .sr-path { font-size:10px; color:var(--muted); display:flex; flex-wrap:wrap; gap:3px; align-items:center; }
-.sr-item .sr-path .p { color:var(--cream2); }
-.sr-item .sr-path .s { color:var(--border2); }
-.sr-empty { text-align:center; padding:48px 20px; color:var(--muted); }
-::-webkit-scrollbar { width:3px; height:3px; }
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--border2); border-radius:4px; }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{background:var(--bg0);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+header{background:var(--bg1);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center;gap:16px;flex-shrink:0;position:relative;z-index:30;}
+header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.4;}
+.wordmark{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold2);letter-spacing:-0.3px;white-space:nowrap;cursor:pointer;user-select:none;transition:opacity .15s;flex-shrink:0;}
+.wordmark:hover{opacity:0.8;}
+.wordmark span{color:var(--cream);font-style:italic;}
+.h-divider{width:1px;height:22px;background:var(--border2);flex-shrink:0;}
+.h-stats{display:flex;gap:16px;flex-shrink:0;}
+.h-stat{display:flex;flex-direction:column;align-items:center;}
+.h-stat .n{font-family:'Playfair Display',serif;font-size:15px;color:var(--gold2);line-height:1;}
+.h-stat .l{font-size:8px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.h-search{margin-left:auto;position:relative;width:220px;flex-shrink:1;min-width:100px;}
+.h-search input{width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:7px 10px 7px 30px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color .2s;}
+.h-search input:focus{border-color:var(--gold);}
+.h-search input::placeholder{color:var(--muted);}
+.h-search .icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none;}
+.filter-bar{background:var(--bg1);border-bottom:1px solid var(--border);padding:0 16px;height:44px;display:flex;align-items:center;gap:8px;flex-shrink:0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.filter-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-right:2px;flex-shrink:0;}
+.diet-btn{display:flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;border:1px solid transparent;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;transition:all .15s;background:transparent;flex-shrink:0;white-space:nowrap;min-height:34px;}
+.diet-btn.veg{border-color:var(--veg-border);color:var(--veg);}
+.diet-btn.nv{border-color:var(--nv-border);color:var(--nv);}
+.diet-btn.egg{border-color:var(--egg-border);color:var(--egg);}
+.diet-btn.veg.on{background:var(--veg-bg);}
+.diet-btn.nv.on{background:var(--nv-bg);}
+.diet-btn.egg.on{background:var(--egg-bg);}
+.diet-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.diet-btn.veg .diet-dot{background:var(--veg);}
+.diet-btn.nv .diet-dot{background:var(--nv);}
+.diet-btn.egg .diet-dot{background:var(--egg);}
+.result-tag{margin-left:auto;font-size:12px;color:var(--muted);display:none;flex-shrink:0;white-space:nowrap;}
+.result-tag.vis{display:block;}
+.body{display:flex;flex:1;overflow:hidden;position:relative;}
+.p1{width:220px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;background:var(--bg1);padding:8px 0;}
+.p1-section-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);padding:12px 18px 5px;}
+.l2-row{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;gap:8px;min-height:44px;}
+.l2-row:hover{background:var(--bg2);border-left-color:var(--border2);}
+.l2-row.active{background:var(--bg2);border-left-color:var(--gold);}
+.l2-row .name{font-size:13px;font-weight:400;color:var(--cream2);line-height:1.3;flex:1;transition:color .15s;}
+.l2-row:hover .name,.l2-row.active .name{color:var(--cream);}
+.l2-row .cnt{font-size:10px;color:var(--muted);background:var(--bg3);padding:2px 7px;border-radius:8px;flex-shrink:0;}
+.l2-row.active .cnt{background:rgba(212,146,10,0.2);color:var(--gold2);}
+.p2{width:270px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;background:var(--bg0);}
+.p2-header{padding:16px 18px 10px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5;background:var(--bg0);}
+.p2-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);letter-spacing:-0.2px;line-height:1.3;}
+.p2-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.p2-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px 20px;text-align:center;color:var(--muted2);}
+.p2-empty .arrow{font-size:28px;margin-bottom:10px;opacity:0.4;}
+.p2-empty p{font-size:13px;line-height:1.6;}
+.l3-section{padding:10px 0 4px;}
+.l3-label{display:flex;align-items:center;gap:7px;padding:5px 18px;}
+.l3-pip{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.l3-name{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.l3-name.veg{color:var(--veg);}.l3-name.nv{color:var(--nv);}.l3-name.egg{color:var(--egg);}.l3-name.na{color:var(--na);}
+.l4-row{display:flex;align-items:center;justify-content:space-between;padding:9px 18px 9px 32px;cursor:pointer;transition:all .15s;border-left:2px solid transparent;gap:6px;min-height:44px;}
+.l4-row:hover{background:var(--bg2);}
+.l4-row.active{background:var(--bg2);border-left-color:var(--gold);}
+.l4-row .l4-name{font-size:13px;font-weight:400;color:var(--cream2);flex:1;line-height:1.3;}
+.l4-row:hover .l4-name,.l4-row.active .l4-name{color:var(--cream);}
+.l4-row .l4-cnt{font-size:10px;color:var(--muted);background:var(--bg3);padding:2px 7px;border-radius:8px;flex-shrink:0;}
+.l4-row.active .l4-cnt{background:rgba(212,146,10,0.2);color:var(--gold2);}
+.p3{flex:1;overflow-y:auto;background:var(--bg0);}
+.p3-welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:48px 32px;text-align:center;}
+.p3-welcome .big{font-family:'Playfair Display',serif;font-size:30px;color:var(--cream);letter-spacing:-0.5px;line-height:1.25;margin-bottom:12px;}
+.p3-welcome .big em{color:var(--gold2);font-style:italic;}
+.p3-welcome .sub{font-size:14px;color:var(--muted);max-width:420px;line-height:1.7;margin-bottom:36px;}
+.ontology-diagram{display:flex;align-items:stretch;background:var(--bg2);border:1px solid var(--border2);border-radius:12px;overflow:hidden;width:100%;max-width:640px;text-align:left;}
+.od-level{flex:1;padding:18px 14px;border-right:1px solid var(--border);position:relative;}
+.od-level:last-child{border-right:none;}
+.od-level::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.od-level.l1::before{background:#94a3b8;}.od-level.l2::before{background:var(--gold2);}.od-level.l3::before{background:#34d399;}.od-level.l4::before{background:#60a5fa;}.od-level.l5::before{background:#f472b6;}
+.od-tag{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.od-name{font-size:12px;font-weight:600;color:var(--cream);margin-bottom:4px;}
+.od-desc{font-size:10px;color:var(--muted);line-height:1.5;}
+.od-example{font-size:9px;color:var(--muted2);margin-top:6px;font-style:italic;line-height:1.5;}
+.p3-header{padding:16px 24px 12px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5;background:var(--bg0);display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.p3-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);letter-spacing:-0.2px;}
+.p3-meta{font-size:12px;color:var(--muted);margin-top:2px;}
+.p3-diet-badge{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:500;display:flex;align-items:center;gap:5px;border:1px solid transparent;flex-shrink:0;}
+.p3-diet-badge.veg{background:var(--veg-bg);border-color:var(--veg-border);color:var(--veg);}
+.p3-diet-badge.nv{background:var(--nv-bg);border-color:var(--nv-border);color:var(--nv);}
+.p3-diet-badge.egg{background:var(--egg-bg);border-color:var(--egg-border);color:var(--egg);}
+.p3-diet-badge.na{background:var(--na-bg);border-color:var(--na-border);color:var(--na);}
+.dish-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;padding:16px 24px 24px;}
+.dish-card{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:11px 14px;display:flex;align-items:center;gap:9px;transition:all .15s;animation:fadeUp .25s ease both;}
+.dish-card:hover{background:var(--bg2);border-color:var(--border2);transform:translateY(-1px);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.dish-card .d-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dish-card .d-name{font-size:13px;font-weight:400;color:var(--cream2);line-height:1.35;}
+.dish-card:hover .d-name{color:var(--cream);}
+.search-panel{display:none;flex:1;overflow-y:auto;padding:20px 24px;background:var(--bg0);}
+.search-panel.vis{display:block;}
+.sr-title{font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);margin-bottom:16px;}
+.sr-title em{color:var(--gold2);font-style:italic;}
+.sr-item{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:7px;display:flex;align-items:center;gap:10px;transition:all .15s;animation:fadeUp .2s ease both;}
+.sr-item:hover{background:var(--bg2);border-color:var(--border2);}
+.sr-item .sr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sr-item .sr-dish{font-size:13px;font-weight:500;color:var(--cream);min-width:160px;}
+.sr-item .sr-path{font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;gap:3px;align-items:center;}
+.sr-item .sr-path .p{color:var(--cream2);}
+.sr-item .sr-path .s{color:var(--border2);}
+.sr-empty{text-align:center;padding:48px 20px;color:var(--muted);}
+.mobile-back{display:none;}
+@media(max-width:768px){
+  .body{overflow:hidden;}
+  .p1,.p2,.p3,.search-panel{
+    position:absolute;top:0;left:0;right:0;bottom:0;
+    width:100%!important;
+    transition:transform .28s cubic-bezier(.4,0,.2,1);
+    will-change:transform;
+    overflow-y:auto;
+  }
+  .p1{transform:translateX(0);z-index:3;border-right:none;}
+  .p2{transform:translateX(100%);z-index:4;}
+  .p3{transform:translateX(100%);z-index:5;}
+  .search-panel{transform:translateX(100%);z-index:6;display:block!important;opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .2s;}
+  .search-panel.vis{transform:translateX(0);opacity:1;pointer-events:all;}
+  .mob-p2 .p1{transform:translateX(-100%);}
+  .mob-p2 .p2{transform:translateX(0);}
+  .mob-p3 .p1{transform:translateX(-100%);}
+  .mob-p3 .p2{transform:translateX(-100%);}
+  .mob-p3 .p3{transform:translateX(0);}
+  .h-divider,.h-stats{display:none;}
+  .h-search{width:100%;max-width:100%;}
+  .wordmark{font-size:17px;}
+  .filter-bar{height:48px;gap:8px;}
+  .diet-btn{font-size:14px;padding:8px 16px;min-height:38px;}
+  .filter-label{font-size:11px;}
+  .mobile-back{
+    display:flex!important;align-items:center;gap:8px;
+    padding:14px 18px;border-bottom:1px solid var(--border);
+    cursor:pointer;color:var(--gold2);font-size:14px;font-weight:500;
+    background:var(--bg1);min-height:52px;flex-shrink:0;
+    position:sticky;top:0;z-index:10;width:100%;
+    border:none;text-align:left;font-family:'Outfit',sans-serif;
+  }
+  .mobile-back .back-arrow{font-size:18px;line-height:1;}
+  .mobile-back .back-label{font-size:14px;color:var(--muted);}
+  .p1-section-label{font-size:10px;letter-spacing:2px;padding:14px 18px 6px;}
+  .l2-row{padding:13px 18px;min-height:52px;}
+  .l2-row .name{font-size:15px;}
+  .l2-row .cnt{font-size:11px;padding:3px 8px;}
+  .p2-header{padding:14px 18px 10px;}
+  .p2-title{font-size:18px;}
+  .p2-sub{font-size:12px;}
+  .l3-label{padding:7px 18px;}
+  .l3-pip{width:10px;height:10px;}
+  .l3-name{font-size:12px;}
+  .l4-row{padding:12px 18px 12px 32px;min-height:52px;}
+  .l4-row .l4-name{font-size:15px;}
+  .l4-row .l4-cnt{font-size:11px;padding:3px 8px;}
+  .p2-empty .arrow{font-size:32px;}
+  .p2-empty p{font-size:15px;}
+  .p3-header{padding:14px 18px 12px;}
+  .p3-title{font-size:18px;}
+  .p3-meta{font-size:13px;}
+  .p3-diet-badge{font-size:12px;padding:5px 13px;}
+  .dish-grid{grid-template-columns:1fr 1fr;gap:8px;padding:14px 14px 24px;}
+  .dish-card{padding:12px 12px;gap:9px;}
+  .dish-card .d-dot{width:8px;height:8px;}
+  .dish-card .d-name{font-size:14px;}
+  .p3-welcome{padding:32px 20px;justify-content:flex-start;padding-top:40px;}
+  .p3-welcome .big{font-size:24px;}
+  .p3-welcome .sub{font-size:14px;margin-bottom:20px;}
+  .ontology-diagram{display:none;}
+  .search-panel{padding:16px 14px;}
+  .sr-title{font-size:20px;margin-bottom:14px;}
+  .sr-item{padding:13px 14px;flex-wrap:wrap;gap:8px;}
+  .sr-item .sr-dish{font-size:15px;min-width:unset;width:100%;}
+  .sr-item .sr-path{font-size:12px;}
+  .sr-item .sr-dot{display:none;}
+}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="wordmark" onclick="resetHome()" title="Back to home">Jio<span>Food</span> &nbsp;·&nbsp; Catalog Ontology</div>
+  <div class="wordmark" id="logoBtn">Jio<span>Food</span> &nbsp;&middot;&nbsp; Catalog</div>
   <div class="h-divider"></div>
   <div class="h-stats">
     <div class="h-stat"><div class="n">5</div><div class="l">Levels</div></div>
@@ -161,58 +208,46 @@ header::after { content:''; position:absolute; bottom:0; left:0; right:0; height
     <div class="h-stat"><div class="n">1,912</div><div class="l">Items</div></div>
   </div>
   <div class="h-search">
-    <span class="icon">⌕</span>
-    <input type="text" id="searchBox" placeholder="Search any item, category, sub-group…" oninput="doSearch(this.value)">
+    <span class="icon">&#8981;</span>
+    <input type="text" id="searchBox" placeholder="Search items, categories&hellip;">
   </div>
 </header>
-
 <div class="filter-bar">
   <span class="filter-label">Filter:</span>
-  <button class="diet-btn veg" onclick="toggleDiet('veg',this)"><div class="diet-dot"></div>Vegetarian</button>
-  <button class="diet-btn nv"  onclick="toggleDiet('nv',this)"><div class="diet-dot"></div>Non-Vegetarian</button>
-  <button class="diet-btn egg" onclick="toggleDiet('egg',this)"><div class="diet-dot"></div>Egg</button>
+  <button class="diet-btn veg" id="btn-veg"><div class="diet-dot"></div>Veg</button>
+  <button class="diet-btn nv"  id="btn-nv"><div class="diet-dot"></div>Non-Veg</button>
+  <button class="diet-btn egg" id="btn-egg"><div class="diet-dot"></div>Egg</button>
   <div class="result-tag" id="resultTag"></div>
 </div>
-
-<div class="body">
+<div class="body" id="bodyEl">
   <div class="p1" id="p1"></div>
   <div class="p2" id="p2">
-    <div class="p2-empty"><div class="arrow">←</div><p>Select a category<br>to explore sub-groups</p></div>
+    <button class="mobile-back" id="p2Back"><span class="back-arrow">&#8592;</span><span class="back-label">Categories</span></button>
+    <div class="p2-empty"><div class="arrow">&#8592;</div><p>Select a category<br>to explore sub-groups</p></div>
   </div>
   <div class="p3" id="p3">
+    <button class="mobile-back" id="p3Back"><span class="back-arrow">&#8592;</span><span id="p3BackLabel" class="back-label">Sub-groups</span></button>
     <div class="p3-welcome">
       <div class="big">The <em>complete</em> food &amp; beverage<br>catalog taxonomy for JioFood</div>
-      <div class="sub">A 5-level ontology covering 26 categories — including Beverages, Desserts &amp; Juices — 165 sub-groups, and 1,912 items structured for search, filtering, and platform-wide consistency.</div>
+      <div class="sub">26 categories &middot; 165 sub-groups &middot; 1,912 items &mdash; including Beverages, Desserts &amp; Juices.</div>
       <div class="ontology-diagram">
         <div class="od-level l1"><div class="od-tag">L 1</div><div class="od-name">Platform</div><div class="od-desc">Root node</div><div class="od-example">JioFood</div></div>
-        <div class="od-level l2"><div class="od-tag">L 2</div><div class="od-name">Category</div><div class="od-desc">Primary navigation</div><div class="od-example">Main Course · Beverages (Cold) · Desserts</div></div>
-        <div class="od-level l3"><div class="od-tag">L 3</div><div class="od-name">Type / Diet</div><div class="od-desc">Diet or sub-type</div><div class="od-example">Veg · Non-Veg · Egg · Iced Coffee · Lassi</div></div>
-        <div class="od-level l4"><div class="od-tag">L 4</div><div class="od-name">Sub-Group</div><div class="od-desc">Protein, cuisine or style</div><div class="od-example">Paneer Dishes · Mocktails · Indian Sweets</div></div>
-        <div class="od-level l5"><div class="od-tag">L 5</div><div class="od-name">Item</div><div class="od-desc">Orderable menu item</div><div class="od-example">Butter Chicken · Mango Lassi · Gulab Jamun</div></div>
+        <div class="od-level l2"><div class="od-tag">L 2</div><div class="od-name">Category</div><div class="od-desc">Primary navigation</div><div class="od-example">Main Course &middot; Beverages</div></div>
+        <div class="od-level l3"><div class="od-tag">L 3</div><div class="od-name">Type / Diet</div><div class="od-desc">Diet or sub-type</div><div class="od-example">Veg &middot; Non-Veg &middot; Egg</div></div>
+        <div class="od-level l4"><div class="od-tag">L 4</div><div class="od-name">Sub-Group</div><div class="od-desc">Cuisine or style</div><div class="od-example">Paneer Dishes &middot; Mocktails</div></div>
+        <div class="od-level l5"><div class="od-tag">L 5</div><div class="od-name">Item</div><div class="od-desc">Orderable item</div><div class="od-example">Butter Chicken &middot; Mango Lassi</div></div>
       </div>
     </div>
   </div>
   <div class="search-panel" id="searchPanel"></div>
 </div>
-
 <script>
-const DATA = {"Beverages (Cold)": {"Energy & Health": {"__items__": ["Aam Panna", "Aloe Vera Juice", "Barley Water", "Bel Sharbat", "Coconut Water", "Haldi Doodh (Cold)", "Jaljeera", "Kokum Sharbat", "Nimbu Pani", "Rose Milk", "Sattu Drink", "Sharbat-e-Rooh Afza", "Thandai", "Wheatgrass Shot"]}, "Iced Coffee": {"__items__": ["Brown Sugar Shaken Espresso", "Cold Brew", "Cold Foam Coffee", "Dalgona Coffee", "Espresso Tonic", "Frappuccino", "Iced Americano", "Iced Caramel Latte", "Iced Hazelnut Latte", "Iced Latte", "Iced Macchiato", "Iced Mocha"]}, "Iced Tea": {"__items__": ["Ginger Iced Tea", "Hibiscus Iced Tea", "Jasmine Iced Tea", "Lemon Iced Tea", "Matcha Iced Tea", "Mint Iced Tea", "Peach Iced Tea", "Raspberry Iced Tea"]}, "Lassi & Chaas": {"__items__": ["Blueberry Lassi", "Chaas / Buttermilk", "Dry Fruit Lassi", "Jeera Chaas", "Kesar Lassi", "Mango Lassi", "Pudina Chaas", "Rose Lassi", "Salted Lassi", "Strawberry Lassi", "Sweet Lassi"]}, "Mocktails": {"__items__": ["Blue Lagoon", "Cucumber Mint Cooler", "Guava Chilli Cooler", "Kiwi Spritzer", "Lavender Lemonade", "Lychee Cooler", "Mango Mojito", "Passion Fruit Spritzer", "Peach Bellini (Mocktail)", "Pina Colada (Mocktail)", "Rose Lemonade", "Shirley Temple", "Strawberry Daiquiri (Mocktail)", "Virgin Mojito", "Watermelon Mint Cooler"]}, "Shakes & Milkshakes": {"__items__": ["Banana Shake", "Biscoff Shake", "Butterscotch Milkshake", "Chocolate Milkshake", "Cold Coffee Shake", "Dates Shake", "Ferrero Rocher Shake", "Kitkat Milkshake", "Mango Shake", "Oreo Milkshake", "Peanut Butter Shake", "Pistachio Shake", "Strawberry Milkshake", "Vanilla Milkshake"]}}, "Beverages (Hot)": {"Coffee": {"__items__": ["Affogato", "Americano", "Beetroot Latte", "Cappuccino", "Caramel Latte", "Cortado", "Espresso", "Filter Coffee", "Flat White", "Hazelnut Latte", "Irish Coffee", "Latte", "Lungo", "Macchiato", "Mocha", "Ristretto", "Turkish Coffee", "Turmeric Latte (Golden Milk)", "Vanilla Latte", "Vienna Coffee"]}, "Hot Chocolate": {"__items__": ["Classic Hot Chocolate", "Dark Hot Chocolate", "Hazelnut Hot Chocolate", "Mint Hot Chocolate", "Salted Caramel Hot Chocolate", "Spiced Hot Chocolate", "White Hot Chocolate"]}, "Tea": {"__items__": ["Adrak Chai", "Assam Tea", "Chamomile Tea", "Cinnamon Tea", "Darjeeling Tea", "Earl Grey", "Elaichi Chai", "Ginger Lemon Tea", "Green Tea", "Hibiscus Tea", "Irani Chai", "Kashmiri Kahwa", "Lemon Honey Tea", "Lemongrass Tea", "Masala Chai", "Oolong Tea", "Peppermint Tea", "Tulsi Tea"]}}, "Breads": {"Veg": {"Pan Breads": ["Akki Roti", "Aloo Paratha", "Bajra Roti", "Besan Chilla", "Bhatura", "Chapati", "Dal Paratha", "Gobi Paratha", "Jowar Roti", "Luchi", "Makki Roti", "Methi Paratha", "Mixed Veg Paratha", "Mooli Paratha", "Onion Paratha", "Paneer Paratha", "Paratha", "Phulka", "Puri", "Thepla"], "South Indian Breads": ["Adai", "Appam", "Dosa", "Ghee Roast Dosa", "Idli", "Kuzhi Paniyaram", "Malabar Parotta", "Masala Dosa", "Neer Dosa", "Onion Rava Dosa", "Paper Dosa", "Pathiri", "Puttu", "Ragi Dosa", "Rava Dosa", "Set Dosa", "Uttapam", "Vada"], "Tandoori Breads": ["Amritsari Kulcha", "Bakarkhani", "Butter Naan", "Cheese Naan", "Chilli Naan", "Garlic Naan", "Keema Naan", "Kulcha", "Missi Roti", "Onion Kulcha", "Paneer Kulcha", "Peshwari Naan", "Plain Naan", "Rumali Roti", "Sheermal", "Stuffed Naan", "Taftan", "Tandoori Roti"]}}, "Breakfast": {"Egg": {"Egg Dishes": ["Avocado & Egg Toast", "Boiled Eggs", "Cloud Eggs", "Denver Omelette", "Egg Bhurji on Toast", "Egg Florentine", "Eggs Benedict", "French Omelette", "Masala Omelette", "Omelette", "Poached Eggs", "Scrambled Eggs", "Shakshuka", "Spanish Omelette", "Sunny Side Up", "Turkish Eggs (Cilbir)"]}, "Non-Veg": {"Chicken": ["Chicken Breakfast Burrito", "Chicken Keema on Toast", "Chicken Salami Sandwich", "Chicken Sausage & Toast"], "Pork": ["American Breakfast (Bacon, Eggs, Toast, Sausage)", "Bacon & Eggs", "Full English Breakfast", "Pancetta & Eggs", "Pork Sausages with Toast"]}, "Veg": {"Continental": ["Acai Bowl", "Avocado Toast", "Bagel with Cream Cheese", "Baked Beans on Toast", "Banana Bread", "Croissant (Cheese)", "Croissant (Plain)", "Crumpets", "Egg-Free French Toast", "French Toast", "Fruit Bowl", "Granola Bowl", "Muesli Bowl", "Overnight Oats", "Pain au Chocolat", "Pancakes", "Smoothie Bowl", "Toast & Butter", "Waffles"], "North Indian": ["Aloo Paratha with Curd", "Besan Chilla", "Chole Bhature", "Dal Paratha", "Gobi Paratha", "Halwa Puri", "Kanda Poha", "Missi Roti with Curd", "Mooli Paratha", "Poha", "Poha Jalebi", "Puri Bhaji", "Sabudana Khichdi", "Sattu Paratha", "Stuffed Paratha Combo", "Upma"], "South Indian": ["Adai Avial", "Akki Roti (Breakfast)", "Appam with Stew", "Idli Sambar", "Kuzhi Paniyaram", "Masala Dosa", "Medu Vada", "Mini Tiffin (Idli + Vada + Dosa)", "Pesarattu", "Pidi", "Pongal", "Rava Idli", "Rava Upma", "Sevai"]}}, "Burgers": {"Egg": {"Egg-based": ["Double Egg Burger", "Egg & Cheese Burger", "Egg Burger", "Fried Egg Burger"]}, "Non-Veg": {"Beef": ["BBQ Bacon Burger", "Beef Sliders", "Beef Smash Burger", "Beef Truffle Burger", "Classic Beef Burger", "Double Patty Beef Burger"], "Chicken": ["BBQ Chicken Burger", "Chicken Club Burger", "Chicken Peri Peri Burger", "Chicken Schezwan Burger", "Chicken Slider (Set of 3)", "Chicken Tikka Burger", "Crispy Chicken Burger", "Fried Chicken Burger", "Grilled Chicken Burger", "Spicy Chicken Burger"], "Mutton & Lamb": ["Lamb Patty Burger", "Lamb Seekh Burger", "Mutton Burger", "Mutton Seekh Burger"], "Seafood": ["Crab Cake Burger", "Fish & Chips Burger", "Fish Burger", "Lobster Burger", "Prawn Burger"]}, "Veg": {"Classic Burgers": ["Aloo Tikki Burger", "Beetroot Burger", "Chickpea Burger", "Corn & Cheese Burger", "Mushroom Swiss Burger", "Paneer Burger", "Rajma Burger", "Soya Burger", "Tofu Burger", "Veg Burger"], "Gourmet Burgers": ["BBQ Jackfruit Burger", "Guacamole Veg Burger", "Korean Veg Burger", "Smashed Veg Burger", "Truffle Mushroom Burger", "Veg Slider (Set of 3)"]}}, "Chaat & Street Food": {"Egg": {"Egg-based": ["Egg Bhurji Pav", "Egg Frankie", "Egg Kathi (Street)", "Egg Keema Pav", "Masala Egg Pav"]}, "Non-Veg": {"Chicken": ["Chicken Chaat", "Chicken Frankie", "Chicken Keema Pav", "Chicken Kheema Roll", "Chicken Tikka Frankie"], "Mutton & Lamb": ["Mutton Boti Roll (Street)", "Mutton Frankie", "Mutton Keema Pav"], "Seafood": ["Prawn Koliwada (Street)"]}, "Veg": {"Chaat": ["Aloo Chaat", "Bhel Puri", "Chana Chaat", "Chole Tikki Chaat", "Corn Chaat", "Dahi Bhalla", "Dahi Puri", "Dahi Vada", "Fruit Chaat", "Matar Chaat", "Palak Patta Chaat", "Pani Puri", "Papdi Chaat", "Raj Kachori", "Samosa Chaat", "Sev Puri", "Tamatar Chaat", "Tokri Chaat"], "Mumbai Street Food": ["Bhaji Pav", "Chinese Bhel", "Dabeli", "Kanda Bhaji", "Misal Pav", "Pav Bhaji", "Ragda Patties", "Sabudana Vada", "Sev Tameta", "Tawa Pulao", "Vada Pav"], "South Indian Street": ["Bread Uttapam", "Gobi Manchurian (Street)", "Kothu Idli", "Kothu Parotta (Veg)", "Pesarattu", "Punugulu", "Rava Uttapam", "Set Dosa (Street)"]}}, "Curries & Gravies": {"Egg": {"Egg-based": ["Egg Bhurji Gravy", "Egg Chettinad", "Egg Curry", "Egg Do Pyaza", "Egg Korma", "Egg Makhani", "Egg Masala", "Egg Saag", "Nargisi Kofta Curry"]}, "Non-Veg": {"Chicken": ["Andhra Chicken Curry", "Butter Chicken", "Chettinad Chicken Curry", "Chicken Cafreal", "Chicken Changezi", "Chicken Chettinad", "Chicken Dakbungalow", "Chicken Do Pyaza", "Chicken Ghee Roast", "Chicken Handi", "Chicken Jalfrezi", "Chicken Keema Masala", "Chicken Kolhapuri", "Chicken Korma", "Chicken Lababdar", "Chicken Mughlai", "Chicken Pasanda", "Chicken Patiala", "Chicken Railway Curry", "Chicken Rezala", "Chicken Saag", "Chicken Sukka", "Chicken Tikka Masala", "Chicken Xacuti", "Kadai Chicken", "Kerala Chicken Curry", "Murg Musallam"], "Mutton & Lamb": ["Lamb Vindaloo", "Mutton Afghani", "Mutton Changezi", "Mutton Chettinad", "Mutton Dakbungalow", "Mutton Handi", "Mutton Jalfrezi", "Mutton Keema", "Mutton Kofta Curry", "Mutton Kolhapuri", "Mutton Korma", "Mutton Lababdar", "Mutton Mughlai", "Mutton Nihari", "Mutton Pasanda", "Mutton Paya", "Mutton Rezala", "Mutton Rogan Josh", "Nalli Curry", "Rogan Josh Kashmiri"], "Pork": ["Pork Adobo", "Pork Bafat", "Pork Belly Curry", "Pork Curry (Coorg)", "Pork Sorpotel", "Pork Vindaloo"], "Seafood": ["Bengali Fish Curry", "Crab Masala", "Doi Maach", "Fish Curry", "Fish Molee", "Fish Recheado", "Goan Fish Curry", "Goan Prawn Curry", "Kerala Prawn Curry", "Lobster Masala", "Machher Jhol", "Malabar Fish Curry", "Prawn Balch\u00e3o", "Prawn Curry (Coastal)", "Prawn Masala", "Squid Masala", "Tawa Fish Masala"]}, "Veg": {"East Indian": ["Aloo Posto", "Cholar Dal", "Cholar Dal (Bengali)", "Dhokar Dalna", "Enchor (Jackfruit) Curry", "Mochar Ghonto", "Shukto"], "Paneer": ["Kadai Paneer", "Palak Paneer", "Paneer Bhurji (Gravy)", "Paneer Butter Masala", "Paneer Chettinad", "Paneer Do Pyaza", "Paneer Handi", "Paneer Kofta", "Paneer Kolhapuri", "Paneer Lababdar", "Paneer Makhani", "Paneer Pasanda", "Paneer Pyaza", "Paneer Rezala", "Paneer Tikka Masala", "Saag Paneer", "Shahi Paneer"], "South Indian": ["Aviyal", "Chettinad Veg Curry", "Kadala Curry", "Kalan", "Kerala Veg Stew", "Kootu", "Manga Curry", "Olan", "Pachadi", "Poriyal", "Rasam (Curry)", "Sambar", "Thoran"], "Soya & Tofu": ["Chilli Soya Chaap (Gravy)", "Soya Chaap Masala", "Soya Keema Masala", "Soya Kofta Curry", "Tofu Curry", "Tofu Tikka Masala"], "Vegetable": ["Aloo Gobi", "Aloo Makhani", "Aloo Matar", "Arbi Masala", "Baingan Bharta", "Bhindi Masala", "Cabbage Curry", "Chana Masala", "Chole Masala", "Drumstick Curry", "Dum Aloo", "Ivy Gourd (Tindora) Curry", "Kathal (Jackfruit) Curry", "Kofta Curry", "Lauki Kofta", "Matar Mushroom", "Matar Paneer", "Methi Matar Malai", "Mix Veg Curry", "Navratan Korma", "Pumpkin Curry", "Rajma Masala", "Raw Banana Curry", "Undhiyu", "Veg Handi", "Veg Jalfrezi", "Veg Kofta", "Veg Kolhapuri", "Yam Curry"]}}, "Dal & Lentils": {"Veg": {"Regional Dals": ["Bengali Musur Dal", "Dal Baati (Dal only)", "Dalitoy (Goan)", "Goan Dal", "Gujarati Dal", "Hyderabadi Khatti Dal", "Kootu Dal", "Maharashtrian Amti", "Rajasthani Panchmel Dal", "Rasam", "Sambar", "Sindhi Dal", "Tamil Paruppu"], "Split Lentils": ["Arhar Dal", "Chana Dal", "Chana Dal Fry", "Dal Fry", "Dal Tadka", "Dhuli Moong Dal", "Dhuli Urad Dal", "Lauki Dal", "Masoor Dal", "Moong Dal", "Palak Dal", "Tadka Urad Dal", "Toor Dal"], "Whole Lentils": ["Dal Makhani", "Kali Dal", "Maa Ki Dal", "Moth Dal", "Panchratna Dal", "Sabut Masoor Dal", "Urad Dal (Whole)"]}}, "Desserts": {"Asian Desserts": {"__items__": ["Annin Tofu", "Bingsu", "Bubur Sumsum", "Chendol", "Dorayaki", "Mango Pudding", "Mango Sticky Rice", "Matcha Ice Cream", "Mochi", "Red Bean Soup", "Sago Pudding", "Taro Ice Cream"]}, "Baked Desserts": {"__items__": ["Apple Crumble", "Banoffee Pie", "Biscuit Cake", "Blueberry Cheesecake", "Bread Pudding", "Carrot Cake", "Cheesecake", "Chocolate Brownie", "Chocolate Fondant", "Chocolate Lava Cake", "Chocolate Mousse", "Cookie", "Cr\u00e8me Br\u00fcl\u00e9e", "Lemon Tart", "Muffin", "New York Cheesecake", "Opera Cake", "Panna Cotta", "Profiteroles", "Red Velvet Cake", "Sticky Toffee Pudding", "Tiramisu", "\u00c9clair"]}, "Frozen Desserts": {"__items__": ["Butterscotch Ice Cream", "Cassata", "Chocolate Ice Cream", "Falooda", "Frozen Yoghurt", "Gelato", "Granita", "Ice Cream Sandwich", "Jamun Ice Cream", "Kulfi", "Mango Ice Cream", "Pistachio Ice Cream", "Softy Ice Cream", "Sorbet", "Strawberry Ice Cream", "Sundae", "Tender Coconut Ice Cream", "Vanilla Ice Cream"]}, "Indian Sweets": {"__items__": ["Badam Halwa", "Balushahi", "Basundi", "Besan Ladoo", "Boondi Ladoo", "Cham Cham", "Coconut Barfi", "Gajar Ka Halwa", "Ghevar", "Gulab Jamun", "Imarti", "Jalebi", "Kaju Katli", "Kala Jamun", "Kalakand", "Kheer", "Malpua", "Mishti Doi", "Moong Dal Halwa", "Motichoor Ladoo", "Mysore Pak", "Paal Payasam", "Pantua", "Payasam", "Peda", "Phirni", "Puran Poli (Dessert)", "Rabri", "Rasgulla", "Rasmalai", "Sandesh", "Semiya Kheer", "Shahi Tukda", "Shrikhand", "Suji Halwa"]}, "Waffles & Pancakes": {"__items__": ["American Pancakes", "Banana Pancake", "Blueberry Pancakes", "Chocolate Waffle", "Classic Pancakes", "Dutch Pancakes", "French Crepe (Sweet)", "Nutella Crepe", "Nutella Pancakes", "Strawberry Waffle", "Waffle with Ice Cream"]}}, "Grills, Kebabs & Tandoor": {"Non-Veg": {"Beef": ["BBQ Beef Ribs", "Beef Burger Patty Grill", "Beef Mixed Grill", "Beef Steak", "Grilled Beef Tenderloin"], "Chicken": ["Chicken Burrah Kebab", "Chicken Chapli Kebab", "Chicken Kakori Kebab", "Chicken Mixed Grill", "Chicken Reshmi Kebab", "Chicken Seekh Kebab", "Chicken Shashlik (Grill)", "Grilled Chicken", "Murgh Musallam (Tandoor)", "Piri Piri Grilled Chicken", "Tandoori Chicken (Full)", "Tandoori Chicken (Half)"], "Mutton & Lamb": ["Lamb Chops Grill", "Lamb Mixed Grill", "Mutton Boti Kebab", "Mutton Burrah", "Mutton Chapli Kebab", "Mutton Galouti Kebab", "Mutton Kakori Kebab", "Mutton Seekh Kebab", "Nalli (Lamb Shank) Grill"], "Pork": ["BBQ Pork Chops", "Pork Sausage Grill", "Pork Spare Ribs", "Pulled Pork"], "Seafood": ["Grilled Fish", "Grilled Salmon", "Prawn Mixed Grill", "Prawn Tandoori", "Tandoori Lobster", "Tandoori Pomfret", "Tawa Fish Tikka"]}, "Veg": {"Tandoor Veg": ["Paneer Tikka (Tandoor)", "Stuffed Tandoori Capsicum", "Tandoori Aloo", "Tandoori Baby Potatoes", "Tandoori Broccoli", "Tandoori Corn", "Tandoori Mixed Veg Platter", "Tandoori Mushroom", "Tandoori Pineapple"], "Veg Kebabs": ["Beetroot Kebab", "Corn Seekh Kebab", "Dahi Ke Kebab", "Hara Bhara Kebab", "Jackfruit Seekh Kebab", "Kathal Kebab", "Rajma Kebab", "Raw Banana Kebab"]}}, "Healthy & Diet": {"Egg": {"Egg-based": ["Boiled Egg Bowl", "Egg Salad Bowl", "Egg White Bhurji", "Egg White Omelette", "Poached Egg Bowl"]}, "Non-Veg": {"Chicken": ["Baked Chicken", "Chicken Quinoa Bowl", "Chicken Soup (Low Fat)", "Grilled Chicken Salad", "Poached Chicken Salad", "Steamed Chicken Dumplings"], "Seafood": ["Baked Salmon", "Grilled Tuna", "Prawn Salad", "Steamed Fish", "Steamed Prawn Bowl", "Tuna Salad Bowl"]}, "Veg": {"High Protein": ["Chickpea Salad", "Edamame Bowl", "Greek Yoghurt Bowl", "Lentil Soup", "Quinoa Bowl", "Rajma Bowl", "Soya Bowl", "Sprouts Salad Bowl", "Tofu Scramble"], "Jain": ["Jain Aloo Matar", "Jain Biryani", "Jain Chole", "Jain Dal Makhani", "Jain Methi Matar Malai", "Jain Paneer Tikka", "Jain Shahi Paneer"], "Keto / Low Carb": ["Avocado Salad", "Broccoli Stir Fry", "Cabbage Stir Fry", "Cauliflower Pizza Crust", "Cauliflower Rice Bowl", "Lettuce Wrap", "Spinach Paneer (Keto)", "Zucchini Lasagne", "Zucchini Noodles"], "Vegan": ["Coconut Curry (Vegan)", "Jackfruit Curry", "Lentil Dhal", "Mushroom & Spinach Bowl", "Oat Bowl", "Tempeh Stir Fry", "Tofu Stir Fry", "Vegan Biryani", "Vegan Buddha Bowl", "Vegan Burger", "Vegan Pasta"]}}, "Juices & Smoothies": {"Fresh Juices": {"__items__": ["Amla Juice", "Apple Juice", "Beetroot Juice", "Carrot Juice", "Celery Juice", "Cucumber Juice", "Ginger Shot", "Guava Juice", "Kiwi Juice", "Mixed Fruit Juice", "Mosambi Juice", "Orange Juice", "Papaya Juice", "Pineapple Juice", "Pomegranate Juice", "Sugarcane Juice", "Tomato Juice", "Turmeric Shot", "Watermelon Juice"]}, "Smoothies": {"__items__": ["Avocado Banana Smoothie", "Banana Smoothie", "Beet & Berry Smoothie", "Berry Blast Smoothie", "Blueberry A\u00e7a\u00ed Smoothie", "Dragon Fruit Smoothie", "Green Detox Smoothie", "Kale & Apple Smoothie", "Mango Smoothie", "Papaya Smoothie", "Peach Smoothie", "Peanut Butter Banana Smoothie", "Spinach Mango Smoothie", "Strawberry Smoothie", "Tropical Smoothie"]}}, "Kids Menu": {"Desserts & Shakes": {"__items__": ["Choco Lava Cake (Mini)", "Chocolate Milk", "Chocolate Sundae (Kids)", "Fruit Custard", "Fruit Jelly", "Ice Cream Scoop", "Kids Milkshake", "Vanilla Cone"]}, "Non-Veg": {"Chicken": ["Chicken Nuggets (Kids)", "Chicken Pasta (Kids)", "Chicken Popcorn (Kids)", "Chicken Soup (Kids)", "Chicken Strips with Fries", "Mini Chicken Burger", "Mini Chicken Pizza"]}, "Veg": {"Mains": ["Cheese Maggi", "Curd Rice (Kids)", "Mini Dosa", "Mini Veg Thali", "Pasta with Tomato Sauce", "Veg Khichdi", "Veg Noodles (Mild)"], "Snacks": ["Cheese Pizza Bites", "Corn Cheese Toast", "Fried Cheese Sticks", "Mac & Cheese", "Mini Idli", "Mini Paneer Pizza", "Mini Samosa", "Mini Veg Burger", "Potato Smiley", "Veg Nuggets"]}}, "Main Course": {"Egg": {"Egg Dry & Stir Fry": ["Egg Bhurji (Main)", "Egg Fried Rice (Main)", "Egg Pepper Fry", "Egg Stir Fry", "Egg Tawa Masala", "Egg Varuval", "Huevos Rancheros", "Masala Omelette (Main)", "Shakshuka (Main Course)"], "Egg Mains": ["Anda Keema Curry", "Egg Achari", "Egg Bhurji Gravy", "Egg Chettinad", "Egg Curry", "Egg Dakbungalow", "Egg Do Pyaza", "Egg Handi", "Egg Jalfrezi", "Egg Kadai", "Egg Kolhapuri", "Egg Korma", "Egg Makhani", "Egg Masala", "Egg Saag", "Nargisi Kofta Curry"]}, "Non-Veg": {"Beef": ["Beef Curry", "Beef Keema", "Beef Massaman Curry", "Beef Pot Roast", "Beef Rendang", "Beef Schezwan", "Beef Short Ribs Braised", "Beef Steak (Main)", "Beef Stir Fry", "Beef Stroganoff", "Beef Vindaloo", "Beef Xacuti", "Beef in Black Bean Sauce", "Korean Bulgogi", "Mongolian Beef"], "Chicken Curries & Gravies": ["Andhra Chicken Curry", "Butter Chicken", "Chettinad Pepper Chicken", "Chicken Achari", "Chicken Ambur Style", "Chicken Cafreal", "Chicken Changezi", "Chicken Chettinad", "Chicken Dakbungalow", "Chicken Do Pyaza", "Chicken Ghee Roast", "Chicken Handi", "Chicken Jalfrezi", "Chicken Keema Masala", "Chicken Kofta Curry", "Chicken Kolhapuri", "Chicken Korma", "Chicken Kosha (Bengali)", "Chicken Lababdar", "Chicken Makhani", "Chicken Methi", "Chicken Mughlai", "Chicken Pasanda", "Chicken Patiala", "Chicken Paya", "Chicken Rezala", "Chicken Rezala (Bengali)", "Chicken Saag", "Chicken Sukka", "Chicken Tikka Handi", "Chicken Tikka Masala", "Chicken Xacuti", "Dhaba Chicken Curry", "Kadai Chicken", "Kashmiri Chicken Curry", "Kerala Chicken Curry", "Murg Musallam"], "Chicken Dry & Stir Fry": ["Andhra Chicken Fry", "Chicken 65 Masala", "Chicken Chilli (Gravy)", "Chicken Ghee Roast (Dry)", "Chicken Keema (Dry)", "Chicken Manchurian (Gravy)", "Chicken Pepper Fry", "Chicken Schezwan", "Chicken Stir Fry", "Chicken Sukka Dry", "Chicken Szechuan", "Chicken Tawa Masala", "Chicken Varuval", "General Tso's Chicken", "Honey Garlic Chicken", "Kadai Chicken (Dry)", "Kung Pao Chicken", "Singapore Chicken", "Teriyaki Chicken", "Thai Basil Chicken"], "International Mains": ["Beef Bourguignon", "Beef Lasagne", "Butter Garlic Lobster", "Chicken Bibimbap", "Chicken Cacciatore", "Chicken Katsu Curry", "Chicken Lasagne", "Chicken Pad See Ew", "Chicken Paella", "Chicken Parmigiana", "Chicken Piccata", "Chicken Steak", "Chicken Tagine", "Coq au Vin", "Duck Confit", "Fish & Chips", "Japanese Chicken Teriyaki", "Japanese Salmon Teriyaki", "Korean Dakgalbi", "Lamb Rogan (International)", "Lamb Shepherd's Pie", "Lamb Tagine", "Seafood Paella", "Thai Green Curry (Chicken)", "Thai Green Curry (Prawn)", "Thai Massaman (Chicken)", "Thai Red Curry (Chicken)", "Thai Red Curry (Prawn)", "Tonkatsu", "Whole Grilled Fish"], "Mutton & Lamb": ["Keema Matar", "Lamb Karahi", "Lamb Saag", "Lamb Vindaloo", "Mutton Achari", "Mutton Afghani", "Mutton Chaap", "Mutton Changezi", "Mutton Chettinad", "Mutton Dakbungalow", "Mutton Do Pyaza", "Mutton Ghee Roast", "Mutton Handi", "Mutton Jalfrezi", "Mutton Kadai", "Mutton Keema", "Mutton Keema Masala", "Mutton Kofta Curry", "Mutton Kolhapuri", "Mutton Korma", "Mutton Kosha (Bengali)", "Mutton Lababdar", "Mutton Mughlai", "Mutton Nihari", "Mutton Pasanda", "Mutton Paya", "Mutton Paya Curry", "Mutton Rezala", "Mutton Rogan Josh", "Mutton Safed Maas", "Mutton Sukka", "Mutton Yakhni", "Nalli Curry", "Nalli Nihari", "Rajasthani Laal Maas", "Rogan Josh (Kashmiri Style)"], "Pork": ["Char Siu Pork", "Pork Adobo", "Pork Bafat", "Pork Belly Braised", "Pork Belly Curry", "Pork Chops with Gravy", "Pork Curry (Coorg)", "Pork Keema", "Pork Ribs Curry", "Pork Sausage Curry", "Pork Schezwan", "Pork Sorpotel", "Pork Stir Fry", "Pork Vindaloo", "Pulled Pork (Main)", "Sweet & Sour Pork"], "Seafood Curries & Mains": ["Andhra Fish Curry", "Bengali Fish Curry", "Butter Garlic Prawns", "Chettinad Fish Curry", "Clam Masala", "Crab Curry (Coastal)", "Crab Ghee Roast", "Crab Masala", "Doi Maach", "Fish Ambotik", "Fish Curry", "Fish Ghee Roast", "Fish Molee", "Fish Recheado", "Fish Tikka Masala", "Goan Fish Curry", "Goan Prawn Curry", "Hilsa (Ilish) Curry", "Kerala Prawn Curry", "King Fish (Surmai) Curry", "Lobster Butter Masala", "Lobster Masala", "Machher Jhol", "Malabar Fish Curry", "Mangalorean Fish Curry", "Mussel Masala", "Oyster Masala", "Pomfret Curry", "Prawn Balch\u00e3o", "Prawn Curry (Coastal)", "Prawn Ghee Roast", "Prawn Koliwada Curry", "Prawn Masala", "Prawn Saagwala", "Rawas Curry", "Squid Masala", "Squid Sukka", "Tawa Fish Masala"], "Seafood Dry & Stir Fry": ["Chettinad Prawn Fry", "Chilli Prawn (Gravy)", "Crispy Fried Fish", "Fish Pepper Fry", "Fish Tawa Fry", "Fish Varuval", "Garlic Butter Prawn", "Honey Soy Fish", "Kung Pao Prawn", "Pepper Prawns", "Prawn Schezwan", "Prawn Stir Fry", "Tawa Prawns", "Teriyaki Salmon", "Thai Basil Prawn"]}, "Veg": {"International Mains": ["Agedashi Tofu", "Falafel Platter", "Japanese Tofu Teriyaki", "Korean Tofu Stew (Sundubu)", "Mapo Tofu (Veg)", "Massaman Curry (Veg)", "Mexican Rice & Beans", "Mushroom Risotto", "Pad See Ew (Veg)", "Ratatouille", "Shakshuka (Main)", "Stuffed Bell Peppers", "Thai Green Curry (Veg)", "Thai Red Curry (Veg)", "Thai Yellow Curry (Veg)", "Veg Bibimbap", "Veg Burrito Bowl (Main)", "Veg Lasagne", "Veg Moussaka", "Veg Paella", "Veg Shepherd's Pie", "Veg Tagine"], "Legumes & Pulses": ["Chana Masala (Main)", "Chole Chawal (Combo)", "Ghugni", "Kala Chana Curry", "Lobiya Curry", "Matki Usal", "Misal (Main)", "Moth Beans Curry", "Pav Bhaji (Main Course)", "Rajma Chawal (Combo)", "Sprouted Moong Curry", "Val Dal Curry"], "North Indian Regional Mains": ["Aloo Posto", "Amritsari Chole", "Besan ki Sabzi", "Bihari Chana Ghugni", "Cholar Dal (Main)", "Dal Baati Churma", "Dhokar Dalna", "Enchor (Jackfruit) Dalna", "Gatte ki Sabzi", "Hariyali Kofta", "Kashmiri Dum Aloo", "Kashmiri Nadru Yakhni", "Kashmiri Rajma", "Litti Chokha", "Methi Thepla Sabzi", "Mochar Ghonto", "Rajasthani Panchmel Dal (Main)", "Shukto", "Sindhi Kadhi"], "Paneer Dishes": ["Achari Paneer", "Kadai Paneer", "Matar Paneer", "Methi Paneer", "Palak Paneer", "Paneer Afghani Curry", "Paneer Angara", "Paneer Bhurji", "Paneer Butter Masala", "Paneer Chettinad", "Paneer Do Pyaza", "Paneer Handi", "Paneer Jalfrezi", "Paneer Kali Mirch", "Paneer Kofta Curry", "Paneer Kolhapuri", "Paneer Lababdar", "Paneer Makhani", "Paneer Mughlai", "Paneer Pasanda", "Paneer Pyaza", "Paneer Rezala", "Paneer Saag", "Paneer Tikka Masala", "Paneer Zafrani Curry", "Shahi Paneer"], "South Indian Mains": ["Aviyal", "Bisi Bele Bath (Main)", "Chettinad Veg Curry", "Erissery", "Kadala Curry", "Kalan", "Kerala Veg Stew", "Kolhapuri Veg", "Kootu", "Manga Curry", "Mor Kuzhambu", "Olan", "Pachadi", "Poriyal", "Pulissery", "Rasam (Main)", "Raw Jackfruit Stew", "Sambar (Main Course)", "Tendli Masala", "Thoran", "Ulli Theeyal", "Vangi Bath (Main)"], "Soya & Protein Dishes": ["Chilli Soya Chaap (Gravy)", "Soya Chaap Masala", "Soya Chunks Curry", "Soya Keema Masala", "Soya Kofta Curry", "Soya Pulao (Main)", "Tempeh Curry", "Tofu Curry", "Tofu Stir Fry", "Tofu Tikka Masala"], "Stir Fry & Dry Dishes": ["Baby Corn Stir Fry", "Broccoli Stir Fry", "Chilli Mushroom (Gravy)", "Chilli Paneer (Gravy)", "Chilli Tofu (Gravy)", "Corn Stir Fry", "Gobi Manchurian (Gravy)", "Karahi Vegetables", "Kung Pao Vegetables", "Mushroom Manchurian (Gravy)", "Paneer Manchurian (Gravy)", "Pepper Mushroom Dry", "Singapore Stir Fry (Veg)", "Szechuan Vegetables", "Teriyaki Vegetables", "Thai Basil Stir Fry (Veg)", "Veg Stir Fry"], "Vegetable Dishes": ["Aloo Chole", "Aloo Gobi", "Aloo Makhani", "Aloo Matar", "Aloo Palak", "Aloo Tamatar", "Arbi Masala", "Baingan Bharta", "Besan Gatte ki Sabzi", "Bhindi Do Pyaza", "Bhindi Masala", "Cabbage Sabzi", "Cauliflower Masala", "Chana Masala", "Chole Masala", "Drumstick Curry", "Dum Aloo", "Ivy Gourd (Tindora) Masala", "Jeera Aloo", "Kachori Sabzi", "Karela Masala", "Kathal (Jackfruit) Curry", "Ker Sangri", "Lauki Kofta", "Lauki Sabzi", "Matar Mushroom", "Matar ka Nimona", "Methi Matar Malai", "Mix Veg Curry", "Navratan Korma", "Pindi Chole", "Pumpkin Curry", "Rajma Masala", "Raw Banana Curry", "Tinda Masala", "Undhiyu", "Veg Handi", "Veg Jalfrezi", "Veg Kofta Curry", "Veg Kolhapuri", "Veg Xacuti", "Yam (Suran) Curry"]}}, "Momos & Dumplings": {"Non-Veg": {"Chicken": ["Chicken Afghani Momos", "Chicken Dim Sum", "Chicken Gyoza", "Chicken Jhol Momos", "Chicken Kurkure Momos", "Chicken Mandu", "Chicken Momos (Fried)", "Chicken Momos (Steamed)", "Chicken Potstickers", "Chicken Soup Momos", "Chicken Wontons"], "Pork": ["Pork Gyoza", "Pork Mandu", "Pork Potstickers", "Pork Siu Mai", "Pork Wontons", "Pork Xiao Long Bao"], "Seafood": ["Crab Dim Sum", "Prawn Dim Sum", "Prawn Gyoza", "Prawn Har Gow", "Prawn Siu Mai", "Prawn Wontons", "Seafood Dumplings"]}, "Veg": {"Asian Dumplings": ["Edamame Gyoza", "Kimchi Dumplings", "Veg Dim Sum", "Veg Har Gow", "Veg Mandu", "Veg Potstickers", "Veg Siu Mai", "Veg Wontons", "Veg Xiao Long Bao"], "Momos": ["Cheese Corn Momos", "Chocolate Momos", "Fried Veg Momos", "Kurkure Momos", "Pan-Fried Veg Momos", "Spinach Corn Momos", "Steamed Veg Momos", "Veg Afghani Momos", "Veg Jhol Momos", "Veg Soup Momos", "Veg Tandoori Momos"]}}, "Noodles & Pasta": {"Egg": {"Egg-based": ["Egg Chow Mein", "Egg Fried Noodles", "Egg Hakka Noodles", "Egg Lo Mein", "Egg Pad Thai", "Egg Pasta", "Egg Schezwan Noodles"]}, "Non-Veg": {"Chicken": ["Chicken Alfredo", "Chicken Bolognese", "Chicken Carbonara", "Chicken Dan Dan Noodles", "Chicken Hakka Noodles", "Chicken Laksa", "Chicken Lo Mein", "Chicken Mie Goreng", "Chicken Pad Thai", "Chicken Pasta Bake", "Chicken Pho", "Chicken Ramen", "Chicken Schezwan Noodles", "Chicken Singapore Noodles", "Chicken Yakisoba", "Pesto Chicken Pasta"], "Mutton & Lamb": ["Mutton Hakka Noodles", "Mutton Keema Pasta", "Mutton Schezwan Noodles"], "Seafood": ["Crab Pasta", "Prawn Laksa", "Prawn Linguine", "Prawn Noodles", "Prawn Pad See Ew", "Seafood Lo Mein", "Seafood Mie Goreng", "Seafood Pad Thai", "Seafood Ramen"]}, "Veg": {"Asian Noodles": ["Glass Noodle Salad", "Korean Japchae (Veg)", "Pad Thai (Veg)", "Veg Laksa", "Veg Mie Goreng", "Veg Pho", "Veg Ramen", "Veg Soba Noodles", "Veg Udon", "Veg Vermicelli", "Veg Yakisoba"], "Indian-Chinese Noodles": ["Singapore Noodles (Veg)", "Veg Chow Mein", "Veg Crispy Noodles", "Veg Dan Dan Noodles", "Veg Hakka Noodles", "Veg Lo Mein", "Veg Mei Fun", "Veg Schezwan Noodles"], "Italian Pasta": ["Fettuccine Alfredo (Veg)", "Fusilli Primavera", "Gnocchi with Tomato Sauce", "Mac & Cheese", "Mushroom Pasta", "Pasta Bake (Veg)", "Pasta Carbonara (Veg)", "Penne Arrabbiata", "Penne Pesto", "Ravioli (Veg)", "Rigatoni Arrabbiata", "Spaghetti Aglio e Olio", "Spaghetti Marinara", "Spinach Ricotta Pasta"]}}, "Party Platters": {"Non-Veg": {"Meal Platters": ["Chicken + Mutton Combo Pack", "Chicken Biryani Party Pack", "Mixed Grill Party Platter", "Mutton Biryani Party Pack", "Non-Veg Thali Party Pack", "Seafood Party Pack"], "Snack Platters": ["Chicken Tikka Platter", "Kebab Platter", "Mixed Grill Platter", "Non-Veg Starter Platter", "Seafood Starter Platter"]}, "Veg": {"Meal Platters": ["Dal Makhani + Rice Pack", "Paneer Combo Pack", "South Indian Veg Meal Pack", "Veg Biryani Party Pack", "Veg Thali Party Pack"], "Snack Platters": ["Chaat Platter", "Finger Food Veg Box", "Nachos Platter", "Pakoda Platter", "Tikka Platter (Veg)", "Veg Mezze Platter (Party)", "Veg Starter Platter"]}}, "Pizza": {"Non-Veg": {"Chicken": ["BBQ Chicken Pizza", "BBQ Chicken Tikka Pizza", "Buffalo Chicken Pizza", "Chicken & Jalape\u00f1o", "Chicken Kheema Pizza", "Chicken Makhani Pizza", "Chicken Pepperoni", "Chicken Peri Peri Pizza", "Chicken Schezwan Pizza", "Chicken Tikka Pizza", "Keema & Onion Pizza"], "Pepperoni & Sausage": ["Chorizo Pizza", "Classic Pepperoni", "Double Pepperoni", "Italian Sausage & Peppers", "Meat Lover's Pizza", "Salami Pizza", "Sausage & Mushroom"], "Seafood": ["Anchovy Pizza", "Crab & Cream Cheese Pizza", "Prawn & Garlic Pizza", "Seafood Pizza", "Smoked Salmon Pizza", "Tuna Pizza"]}, "Veg": {"Classic Veg": ["Capsicum & Onion Pizza", "Corn & Cheese Pizza", "Farmhouse", "Four Cheese Pizza", "Garden Fresh Pizza", "Margherita", "Mexican Wave (Veg)", "Mushroom & Olive", "Paneer Tikka Pizza", "Peri Peri Veg Pizza", "Spinach & Ricotta", "Triple Cheese", "Veggie Supreme"], "Gourmet Veg": ["Avocado Pizza", "Beetroot & Goat Cheese Pizza", "Caramelised Onion Pizza", "Fig & Brie Pizza", "Pesto & Sun-Dried Tomato", "Roasted Garlic & Artichoke", "Truffle Mushroom Pizza"]}}, "Rice & Biryani": {"Egg": {"Egg-based": ["Double Egg Biryani", "Egg Biryani", "Egg Fried Rice", "Egg Masala Rice", "Egg Pulao"]}, "Non-Veg": {"Chicken": ["Ambur Chicken Biryani", "Burnt Garlic Chicken Fried Rice", "Chettinad Chicken Biryani", "Chicken Dum Biryani", "Chicken Fried Rice", "Chicken Keema Rice", "Chicken Pulao", "Chicken Schezwan Fried Rice", "Chicken Singapore Rice", "Chicken Tehri", "Chicken Tikka Biryani", "Hyderabadi Chicken Biryani", "Kolkata Chicken Biryani", "Lucknowi Chicken Biryani"], "Mutton & Lamb": ["Hyderabadi Mutton Biryani", "Kolkata Mutton Biryani", "Lamb Biryani", "Lucknowi Mutton Biryani", "Mutton Dum Biryani", "Mutton Keema Rice", "Mutton Pulao", "Mutton Tehri", "Mutton Yakhni Pulao"], "Pork": ["Pork Biryani", "Pork Fried Rice", "Pork Keema Rice"], "Seafood": ["Crab Fried Rice", "Fish Biryani", "Lobster Biryani", "Malabar Prawn Biryani", "Prawn Biryani", "Prawn Pulao", "Seafood Fried Rice", "Thalassery Fish Biryani"]}, "Veg": {"Biryani": ["Aloo Biryani", "Corn Biryani", "Hyderabadi Veg Biryani", "Kathal (Jackfruit) Biryani", "Lucknowi Veg Biryani", "Mushroom Biryani", "Paneer Biryani", "Soya Chaap Biryani", "Tawa Veg Biryani", "Veg Dum Biryani", "Vegetable Biryani"], "Khichdi & Others": ["Bajra Khichdi", "Bisi Bele Bath", "Coconut Milk Rice", "Curd Rice", "Ellu Sadam", "Karivepillai Sadam", "Lemon Rice", "Masala Khichdi", "Moong Dal Khichdi", "Puliyodarai", "Sabudana Khichdi", "Tamarind Rice", "Vangi Bath"], "Pulao & Fried Rice": ["Basil Fried Rice (Veg)", "Burnt Garlic Fried Rice (Veg)", "Coconut Rice", "Corn Fried Rice", "Ghee Rice", "Jeera Rice", "Kashmiri Pulao", "Matar Pulao", "Pineapple Fried Rice", "Schezwan Fried Rice (Veg)", "Singapore Rice (Veg)", "Veg Fried Rice", "Veg Pulao", "Veg Tehri"]}}, "Rolls, Wraps & Sandwiches": {"Egg": {"Egg-based": ["Egg Kathi Roll", "Egg Mayo Sandwich", "Egg Roll", "Egg Sandwich", "Egg Wrap", "Omelette Roll"]}, "Non-Veg": {"Chicken": ["Chicken BLT", "Chicken Burrito", "Chicken Cheese Roll", "Chicken Club Sandwich", "Chicken Kathi Roll", "Chicken Peri Peri Roll", "Chicken Pesto Wrap", "Chicken Schezwan Roll", "Chicken Shawarma", "Chicken Sub", "Chicken Tikka Roll", "Chicken Tikka Sandwich", "Grilled Chicken Wrap"], "Mutton & Lamb": ["Lamb Shawarma", "Lamb Wrap", "Mutton Boti Roll", "Mutton Kathi Roll", "Mutton Seekh Roll"], "Seafood": ["Fish Roll", "Fish Tikka Roll", "Prawn Baguette", "Prawn Roll", "Prawn Wrap", "Tuna Sandwich"]}, "Veg": {"Kathi Rolls": ["Aloo Tikki Roll", "Cheese Kathi Roll", "Corn & Cheese Roll", "Dal Makhani Roll", "Hara Bhara Roll", "Mixed Veg Roll", "Mushroom Roll", "Paneer Kathi Roll", "Soya Chaap Roll"], "Sandwiches": ["Bombay Sandwich", "Caprese Sandwich", "Cheese & Tomato Sandwich", "Corn & Cheese Sandwich", "Cucumber Sandwich", "Grilled Cheese Sandwich", "Masala Sandwich", "Mushroom Sandwich", "Paneer Tikka Sandwich", "Pesto & Cheese Sandwich", "Veg BLT", "Veg Club Sandwich", "Veg Sub"], "Wraps & Burritos": ["Corn & Black Bean Burrito", "Falafel Wrap", "Gr eek Veg Wrap", "Hummus & Veggie Wrap", "Mexican Veg Wrap", "Paneer Wrap", "Shawarma (Veg)", "Veg Burrito", "Veg Tacos Wrap"]}}, "Salads": {"Egg": {"Egg-based": ["Classic Egg Salad", "Devilled Egg Salad", "Egg & Avocado Salad", "Egg Salad"]}, "Non-Veg": {"Chicken": ["BBQ Chicken Salad", "Chicken Avocado Salad", "Chicken Caesar Salad", "Chicken Pesto Salad", "Chicken Waldorf Salad", "Grilled Chicken Salad", "Thai Chicken Salad"], "Seafood": ["Crab Salad", "Lobster Salad", "Prawn Avocado Salad", "Prawn Louis Salad", "Seafood Nicoise", "Smoked Salmon Salad", "Tuna Salad"]}, "Veg": {"Asian": ["Edamame Salad", "Japanese Cucumber Salad", "Korean Japchae Salad", "Lotus Root Salad", "Mango Salad", "Sesame Noodle Salad", "Som Tam (Papaya Salad)", "Thai Mango Salad"], "Indian": ["Beet & Carrot Salad", "Corn Salad", "Kachumber Salad", "Moong Salad", "Onion Tomato Salad", "Peanut Salad", "Raita Salad", "Sprouts Salad"], "International": ["Arugula & Parmesan", "Beetroot & Goat Cheese", "Caesar Salad (Veg)", "Caprese Salad", "Coleslaw", "Fattoush", "Greek Salad", "Nicoise Salad (Veg)", "Pesto Pasta Salad", "Quinoa Salad", "Tabbouleh", "Waldorf Salad", "Watermelon Feta Salad"]}}, "Sides & Accompaniments": {"Non-Veg": {"Chicken Sides": ["Chicken Liver Fry", "Chicken Nuggets", "Chicken Satay Skewers (Side)", "Chicken Strips", "Mini Chicken Tikka (Side)"]}, "Veg": {"Dips & Chutneys": ["Baba Ganoush", "Blue Cheese Dip", "Chipotle Sauce", "Cocktail Sauce", "Garlic Mayo", "Hummus", "Mint Chutney", "Peanut Sauce", "Ranch Dip", "Salsa", "Sour Cream Dip", "Sriracha Dip", "Sweet Chilli Sauce", "Tamarind Chutney", "Tzatziki"], "Fried Sides": ["Cajun Fries", "Cheese Balls", "Cheese Fries", "Corn Ribs", "French Fries", "Hash Browns", "Loaded Fries", "Masala Fries", "Mushroom Fries", "Onion Rings", "Peri Peri Fries", "Sweet Potato Fries", "Waffle Fries", "Zucchini Fries"], "Papad & Pickle": ["Cauliflower Pickle", "Fried Papad", "Green Chilli Pickle", "Lemon Pickle", "Mango Pickle", "Masala Papad", "Mixed Pickle", "Papad", "Roasted Papad"], "Raita & Curd": ["Boondi Raita", "Cucumber Raita", "Curd", "Lauki Raita", "Mint Raita", "Mixed Raita", "Onion Tomato Raita", "Pineapple Raita", "Plain Raita", "Shrikhand (Side)"]}}, "Soups": {"Egg": {"Egg-based": ["Egg Drop Soup", "Egg Flower Soup", "Stracciatella Soup"]}, "Non-Veg": {"Chicken": ["Chicken Clear Soup", "Chicken Corn Chowder", "Chicken Laksa", "Chicken Manchow Soup", "Chicken Mulligatawny", "Chicken Noodle Soup", "Chicken Sweet Corn Soup", "Chicken Tortilla Soup", "Chicken Wonton Soup", "Cream of Chicken", "Hot & Sour Soup (Chicken)", "Thai Chicken Soup", "Tom Kha Gai"], "Mutton & Lamb": ["Lamb Broth", "Lamb Noodle Soup", "Mutton Shorba", "Mutton Yakhni", "Nalli Shorba"], "Seafood": ["Clam Chowder", "Crab Soup", "Fish Soup", "Lobster Bisque", "Prawn Bisque", "Prawn Tom Yum", "Seafood Tom Yum", "Thai Fish Soup"]}, "Veg": {"Asian Style": ["Hot & Sour Soup (Veg)", "Kimchi Soup (Veg)", "Korean Doenjang Jjigae (Veg)", "Laksa (Veg)", "Manchow Soup (Veg)", "Miso Soup", "Thai Green Curry Soup (Veg)", "Tom Kha (Veg)", "Wonton Soup (Veg)"], "Broth & Clear": ["Beetroot Soup", "Carrot Ginger Soup", "Corn Chowder", "Gazpacho", "Lentil Soup", "Minestrone", "Onion Soup", "Spinach Soup", "Sweet Corn Soup", "Tomato Soup", "Veg Noodle Soup", "Vegetable Clear Soup"], "Cream & Bisque": ["Cream of Asparagus", "Cream of Broccoli", "Cream of Celery", "Cream of Mushroom", "Cream of Spinach", "Leek & Potato Soup", "Pumpkin Soup", "Roasted Red Pepper Soup", "Sweet Potato Soup"]}}, "Starters & Appetisers": {"Egg": {"Egg-based": ["Anda Fry", "Devilled Eggs", "Egg Bhurji", "Egg Cutlet", "Egg Pakoda", "Egg Puff", "Half Boiled Egg with Toast", "Masala Egg", "Scotch Eggs"]}, "Non-Veg": {"Chicken": ["Buffalo Chicken Wings", "Chicken 65", "Chicken Achari Tikka", "Chicken Afghani Tikka", "Chicken Angara Tikka", "Chicken Cheese Balls", "Chicken Cutlet", "Chicken Drumsticks", "Chicken Fingers", "Chicken Hariyali Tikka", "Chicken Kali Mirch Tikka", "Chicken Lollipop", "Chicken Malai Tikka", "Chicken Manchurian", "Chicken Pahadi Tikka", "Chicken Pakoda", "Chicken Peri Peri", "Chicken Popcorn", "Chicken Reshmi Kebab (Starter)", "Chicken Satay", "Chicken Shashlik", "Chicken Spring Roll", "Chicken Tempura", "Chicken Tikka", "Chicken Wings", "Chilli Chicken", "Crispy Fried Chicken", "Peri Peri Chicken", "Tandoori Chicken"], "Mutton & Lamb": ["Galouti Kebab", "Lamb Chops", "Lamb Tikka", "Mutton Boti Kebab", "Mutton Burrah", "Mutton Chapli Kebab", "Mutton Cutlet", "Mutton Kakori Kebab", "Mutton Kola Urundai", "Mutton Pattice", "Mutton Seekh Kebab", "Mutton Shammi Kebab", "Mutton Spring Roll"], "Pork": ["Chilli Pork (Dry)", "Crispy Pork Belly", "Pork Belly Bites", "Pork Chops", "Pork Crackling", "Pork Ribs", "Pork Sausage Platter"], "Seafood": ["Calamari Rings", "Chilli Prawn (Dry)", "Crab Claws", "Fish 65", "Fish Cutlet", "Fish Fingers", "Fish Pakoda", "Fish Tikka", "Lobster Starter", "Prawn 65", "Prawn Koliwada", "Prawn Satay", "Prawn Spring Roll", "Prawn Tempura", "Tawa Fish"]}, "Veg": {"Cauliflower-based": ["Achari Gobi", "Cauliflower 65", "Chilli Cauliflower", "Chilli Gobi", "Gobi 65", "Gobi Manchurian", "Gobi Pakoda", "Gobi Seekh Kebab", "Tandoori Gobi"], "Dips & Platters": ["Bruschetta", "Crud\u00e9s with Dip", "Guacamole with Nachos", "Hummus with Pita", "Nachos with Dips", "Paneer Mezze", "Veg Antipasto Platter", "Veg Mezze Platter"], "Fried Snacks": ["Bread Pakoda", "Cheese Pakoda", "Chilli Cheese Toast", "Corn Pakoda", "Dal Vada", "Kachori", "Macaroni Bites", "Medu Vada (Starter)", "Mixed Veg Pakoda", "Mysore Bonda", "Nachos", "Onion Pakoda", "Paneer Pakoda", "Pani Puri (Starter)", "Potato Chips", "Punugulu", "Samosa", "Spinach Pakoda", "Veg Cutlet", "Veg Puff", "Veg Spring Roll"], "Mushroom-based": ["Chilli Mushroom (Dry)", "Crispy Mushroom", "Mushroom 65", "Mushroom Galawat", "Mushroom Manchurian (Dry)", "Mushroom Pepper Fry", "Mushroom Satay", "Mushroom Spring Roll", "Mushroom Tikka", "Stuffed Mushroom"], "Paneer-based": ["Chilli Paneer (Dry)", "Paneer 65", "Paneer Achari Tikka", "Paneer Afghani Tikka", "Paneer Angara Tikka", "Paneer Bhurji (Starter)", "Paneer Do Pyaza (Starter)", "Paneer Hariyali Tikka", "Paneer Kali Mirch Tikka", "Paneer Lababdar Tikka", "Paneer Malai Tikka", "Paneer Manchurian (Dry)", "Paneer Pahadi Tikka", "Paneer Seekh Kebab", "Paneer Shashlik", "Paneer Tikka", "Paneer Zafrani Tikka"], "Potato-based": ["Aloo 65", "Aloo Tikki", "Baby Potatoes Tandoori", "Batata Vada", "Chilli Potato", "Crispy Corn", "Dahi Aloo Tikki", "Hara Bhara Tikki", "Jeera Aloo (Starter)", "Loaded Potato Skins", "Masala Aloo Tikki", "Potato Skins", "Potato Wedges"], "Soya & Tofu": ["Afghani Soya Chaap", "Chilli Soya Chaap", "Chilli Tofu", "Malai Soya Chaap", "Soya Chaap (Dry)", "Soya Chaap Tikka", "Soya Seekh Kebab", "Tofu Manchurian (Dry)", "Tofu Satay", "Tofu Tikka"]}}, "Tacos & Mexican": {"Non-Veg": {"Beef": ["Beef Burrito Bowl", "Beef Enchiladas", "Beef Fajitas", "Beef Quesadilla", "Beef Taco"], "Chicken": ["BBQ Chicken Taco", "Chicken Burrito Bowl", "Chicken Enchiladas", "Chicken Fajitas", "Chicken Quesadilla", "Chicken Taco", "Chipotle Chicken Bowl"], "Seafood": ["Fish Taco", "Lobster Taco", "Prawn Taco", "Shrimp Burrito Bowl", "Shrimp Taco"]}, "Veg": {"Nachos & Bowls": ["Guacamole Bowl", "Loaded Nachos (Veg)", "Mexican Rice Bowl (Veg)", "Nachos with Salsa", "Salsa & Chips", "Veg Burrito Bowl", "Veg Enchiladas"], "Quesadillas": ["Black Bean Quesadilla", "Cheese Quesadilla", "Mushroom Quesadilla", "Paneer Quesadilla", "Spinach & Corn Quesadilla", "Veg Quesadilla"], "Tacos": ["Avocado Taco", "Black Bean Taco", "Cauliflower Taco", "Mushroom Taco", "Paneer Taco", "Sweet Potato Taco", "Veg Taco"]}}, "Thali & Combos": {"Egg": {"Egg-based": ["Egg Lunch Box", "Egg Meal Combo", "Egg Thali"]}, "Non-Veg": {"Indian Thalis": ["Andhra Chicken Thali", "Bengali Fish Thali", "Chicken Chettinad Thali", "Chicken Thali", "Fish Thali", "Goan Fish Thali", "Mutton Thali", "Prawn Thali"], "Meal Combos": ["Chicken Meal Combo", "Family Non-Veg Pack", "Lunch Box (Non-Veg)", "Office Lunch (Non-Veg)", "Student Meal (Non-Veg)", "Tiffin Combo (Non-Veg)"]}, "Veg": {"Indian Thalis": ["Bengali Veg Thali", "Chhattisgarhi Thali", "Gujarati Thali", "Karnataka Thali", "Kashmiri Veg Wazwan", "Maharashtrian Thali", "North Indian Veg Thali", "Odia Thali", "Punjabi Veg Thali", "Rajasthani Thali", "South Indian Veg Thali"], "Meal Combos": ["Economy Meal (Veg)", "Family Veg Pack", "Lunch Box (Veg)", "Office Lunch (Veg)", "Student Meal (Veg)", "Tiffin Combo (Veg)", "Veg Meal Combo"]}}};
+const DATA = {"Beverages (Cold)": {"Energy & Health": {"__items__": ["Aam Panna", "Aloe Vera Juice", "Barley Water", "Bel Sharbat", "Coconut Water", "Haldi Doodh (Cold)", "Jaljeera", "Kokum Sharbat", "Nimbu Pani", "Rose Milk", "Sattu Drink", "Sharbat-e-Rooh Afza", "Thandai", "Wheatgrass Shot"]}, "Iced Coffee": {"__items__": ["Brown Sugar Shaken Espresso", "Cold Brew", "Cold Foam Coffee", "Dalgona Coffee", "Espresso Tonic", "Frappuccino", "Iced Americano", "Iced Caramel Latte", "Iced Hazelnut Latte", "Iced Latte", "Iced Macchiato", "Iced Mocha"]}, "Iced Tea": {"__items__": ["Ginger Iced Tea", "Hibiscus Iced Tea", "Jasmine Iced Tea", "Lemon Iced Tea", "Matcha Iced Tea", "Mint Iced Tea", "Peach Iced Tea", "Raspberry Iced Tea"]}, "Lassi & Chaas": {"__items__": ["Blueberry Lassi", "Chaas / Buttermilk", "Dry Fruit Lassi", "Jeera Chaas", "Kesar Lassi", "Mango Lassi", "Pudina Chaas", "Rose Lassi", "Salted Lassi", "Strawberry Lassi", "Sweet Lassi"]}, "Mocktails": {"__items__": ["Blue Lagoon", "Cucumber Mint Cooler", "Guava Chilli Cooler", "Kiwi Spritzer", "Lavender Lemonade", "Lychee Cooler", "Mango Mojito", "Passion Fruit Spritzer", "Peach Bellini (Mocktail)", "Pina Colada (Mocktail)", "Rose Lemonade", "Shirley Temple", "Strawberry Daiquiri (Mocktail)", "Virgin Mojito", "Watermelon Mint Cooler"]}, "Shakes & Milkshakes": {"__items__": ["Banana Shake", "Biscoff Shake", "Butterscotch Milkshake", "Chocolate Milkshake", "Cold Coffee Shake", "Dates Shake", "Ferrero Rocher Shake", "Kitkat Milkshake", "Mango Shake", "Oreo Milkshake", "Peanut Butter Shake", "Pistachio Shake", "Strawberry Milkshake", "Vanilla Milkshake"]}}, "Beverages (Hot)": {"Coffee": {"__items__": ["Affogato", "Americano", "Beetroot Latte", "Cappuccino", "Caramel Latte", "Cortado", "Espresso", "Filter Coffee", "Flat White", "Hazelnut Latte", "Irish Coffee", "Latte", "Lungo", "Macchiato", "Mocha", "Ristretto", "Turkish Coffee", "Turmeric Latte (Golden Milk)", "Vanilla Latte", "Vienna Coffee"]}, "Hot Chocolate": {"__items__": ["Classic Hot Chocolate", "Dark Hot Chocolate", "Hazelnut Hot Chocolate", "Mint Hot Chocolate", "Salted Caramel Hot Chocolate", "Spiced Hot Chocolate", "White Hot Chocolate"]}, "Tea": {"__items__": ["Adrak Chai", "Assam Tea", "Chamomile Tea", "Cinnamon Tea", "Darjeeling Tea", "Earl Grey", "Elaichi Chai", "Ginger Lemon Tea", "Green Tea", "Hibiscus Tea", "Irani Chai", "Kashmiri Kahwa", "Lemon Honey Tea", "Lemongrass Tea", "Masala Chai", "Oolong Tea", "Peppermint Tea", "Tulsi Tea"]}}, "Breads": {"Veg": {"Pan Breads": ["Akki Roti", "Aloo Paratha", "Bajra Roti", "Besan Chilla", "Bhatura", "Chapati", "Dal Paratha", "Gobi Paratha", "Jowar Roti", "Luchi", "Makki Roti", "Methi Paratha", "Mixed Veg Paratha", "Mooli Paratha", "Onion Paratha", "Paneer Paratha", "Paratha", "Phulka", "Puri", "Thepla"], "South Indian Breads": ["Adai", "Appam", "Dosa", "Ghee Roast Dosa", "Idli", "Kuzhi Paniyaram", "Malabar Parotta", "Masala Dosa", "Neer Dosa", "Onion Rava Dosa", "Paper Dosa", "Pathiri", "Puttu", "Ragi Dosa", "Rava Dosa", "Set Dosa", "Uttapam", "Vada"], "Tandoori Breads": ["Amritsari Kulcha", "Bakarkhani", "Butter Naan", "Cheese Naan", "Chilli Naan", "Garlic Naan", "Keema Naan", "Kulcha", "Missi Roti", "Onion Kulcha", "Paneer Kulcha", "Peshwari Naan", "Plain Naan", "Rumali Roti", "Sheermal", "Stuffed Naan", "Taftan", "Tandoori Roti"]}}, "Breakfast": {"Egg": {"Egg Dishes": ["Avocado & Egg Toast", "Boiled Eggs", "Cloud Eggs", "Denver Omelette", "Egg Bhurji on Toast", "Egg Florentine", "Eggs Benedict", "French Omelette", "Masala Omelette", "Omelette", "Poached Eggs", "Scrambled Eggs", "Shakshuka", "Spanish Omelette", "Sunny Side Up", "Turkish Eggs (Cilbir)"]}, "Non-Veg": {"Chicken": ["Chicken Breakfast Burrito", "Chicken Keema on Toast", "Chicken Salami Sandwich", "Chicken Sausage & Toast"], "Pork": ["American Breakfast (Bacon, Eggs, Toast, Sausage)", "Bacon & Eggs", "Full English Breakfast", "Pancetta & Eggs", "Pork Sausages with Toast"]}, "Veg": {"Continental": ["Acai Bowl", "Avocado Toast", "Bagel with Cream Cheese", "Baked Beans on Toast", "Banana Bread", "Croissant (Cheese)", "Croissant (Plain)", "Crumpets", "Egg-Free French Toast", "French Toast", "Fruit Bowl", "Granola Bowl", "Muesli Bowl", "Overnight Oats", "Pain au Chocolat", "Pancakes", "Smoothie Bowl", "Toast & Butter", "Waffles"], "North Indian": ["Aloo Paratha with Curd", "Besan Chilla", "Chole Bhature", "Dal Paratha", "Gobi Paratha", "Halwa Puri", "Kanda Poha", "Missi Roti with Curd", "Mooli Paratha", "Poha", "Poha Jalebi", "Puri Bhaji", "Sabudana Khichdi", "Sattu Paratha", "Stuffed Paratha Combo", "Upma"], "South Indian": ["Adai Avial", "Akki Roti (Breakfast)", "Appam with Stew", "Idli Sambar", "Kuzhi Paniyaram", "Masala Dosa", "Medu Vada", "Mini Tiffin (Idli + Vada + Dosa)", "Pesarattu", "Pidi", "Pongal", "Rava Idli", "Rava Upma", "Sevai"]}}, "Burgers": {"Egg": {"Egg-based": ["Double Egg Burger", "Egg & Cheese Burger", "Egg Burger", "Fried Egg Burger"]}, "Non-Veg": {"Beef": ["BBQ Bacon Burger", "Beef Sliders", "Beef Smash Burger", "Beef Truffle Burger", "Classic Beef Burger", "Double Patty Beef Burger"], "Chicken": ["BBQ Chicken Burger", "Chicken Club Burger", "Chicken Peri Peri Burger", "Chicken Schezwan Burger", "Chicken Slider (Set of 3)", "Chicken Tikka Burger", "Crispy Chicken Burger", "Fried Chicken Burger", "Grilled Chicken Burger", "Spicy Chicken Burger"], "Mutton & Lamb": ["Lamb Patty Burger", "Lamb Seekh Burger", "Mutton Burger", "Mutton Seekh Burger"], "Seafood": ["Crab Cake Burger", "Fish & Chips Burger", "Fish Burger", "Lobster Burger", "Prawn Burger"]}, "Veg": {"Classic Burgers": ["Aloo Tikki Burger", "Beetroot Burger", "Chickpea Burger", "Corn & Cheese Burger", "Mushroom Swiss Burger", "Paneer Burger", "Rajma Burger", "Soya Burger", "Tofu Burger", "Veg Burger"], "Gourmet Burgers": ["BBQ Jackfruit Burger", "Guacamole Veg Burger", "Korean Veg Burger", "Smashed Veg Burger", "Truffle Mushroom Burger", "Veg Slider (Set of 3)"]}}, "Chaat & Street Food": {"Egg": {"Egg-based": ["Egg Bhurji Pav", "Egg Frankie", "Egg Kathi (Street)", "Egg Keema Pav", "Masala Egg Pav"]}, "Non-Veg": {"Chicken": ["Chicken Chaat", "Chicken Frankie", "Chicken Keema Pav", "Chicken Kheema Roll", "Chicken Tikka Frankie"], "Mutton & Lamb": ["Mutton Boti Roll (Street)", "Mutton Frankie", "Mutton Keema Pav"], "Seafood": ["Prawn Koliwada (Street)"]}, "Veg": {"Chaat": ["Aloo Chaat", "Bhel Puri", "Chana Chaat", "Chole Tikki Chaat", "Corn Chaat", "Dahi Bhalla", "Dahi Puri", "Dahi Vada", "Fruit Chaat", "Matar Chaat", "Palak Patta Chaat", "Pani Puri", "Papdi Chaat", "Raj Kachori", "Samosa Chaat", "Sev Puri", "Tamatar Chaat", "Tokri Chaat"], "Mumbai Street Food": ["Bhaji Pav", "Chinese Bhel", "Dabeli", "Kanda Bhaji", "Misal Pav", "Pav Bhaji", "Ragda Patties", "Sabudana Vada", "Sev Tameta", "Tawa Pulao", "Vada Pav"], "South Indian Street": ["Bread Uttapam", "Gobi Manchurian (Street)", "Kothu Idli", "Kothu Parotta (Veg)", "Pesarattu", "Punugulu", "Rava Uttapam", "Set Dosa (Street)"]}}, "Curries & Gravies": {"Egg": {"Egg-based": ["Egg Bhurji Gravy", "Egg Chettinad", "Egg Curry", "Egg Do Pyaza", "Egg Korma", "Egg Makhani", "Egg Masala", "Egg Saag", "Nargisi Kofta Curry"]}, "Non-Veg": {"Chicken": ["Andhra Chicken Curry", "Butter Chicken", "Chettinad Chicken Curry", "Chicken Cafreal", "Chicken Changezi", "Chicken Chettinad", "Chicken Dakbungalow", "Chicken Do Pyaza", "Chicken Ghee Roast", "Chicken Handi", "Chicken Jalfrezi", "Chicken Keema Masala", "Chicken Kolhapuri", "Chicken Korma", "Chicken Lababdar", "Chicken Mughlai", "Chicken Pasanda", "Chicken Patiala", "Chicken Railway Curry", "Chicken Rezala", "Chicken Saag", "Chicken Sukka", "Chicken Tikka Masala", "Chicken Xacuti", "Kadai Chicken", "Kerala Chicken Curry", "Murg Musallam"], "Mutton & Lamb": ["Lamb Vindaloo", "Mutton Afghani", "Mutton Changezi", "Mutton Chettinad", "Mutton Dakbungalow", "Mutton Handi", "Mutton Jalfrezi", "Mutton Keema", "Mutton Kofta Curry", "Mutton Kolhapuri", "Mutton Korma", "Mutton Lababdar", "Mutton Mughlai", "Mutton Nihari", "Mutton Pasanda", "Mutton Paya", "Mutton Rezala", "Mutton Rogan Josh", "Nalli Curry", "Rogan Josh Kashmiri"], "Pork": ["Pork Adobo", "Pork Bafat", "Pork Belly Curry", "Pork Curry (Coorg)", "Pork Sorpotel", "Pork Vindaloo"], "Seafood": ["Bengali Fish Curry", "Crab Masala", "Doi Maach", "Fish Curry", "Fish Molee", "Fish Recheado", "Goan Fish Curry", "Goan Prawn Curry", "Kerala Prawn Curry", "Lobster Masala", "Machher Jhol", "Malabar Fish Curry", "Prawn Balch\u00e3o", "Prawn Curry (Coastal)", "Prawn Masala", "Squid Masala", "Tawa Fish Masala"]}, "Veg": {"East Indian": ["Aloo Posto", "Cholar Dal", "Cholar Dal (Bengali)", "Dhokar Dalna", "Enchor (Jackfruit) Curry", "Mochar Ghonto", "Shukto"], "Paneer": ["Kadai Paneer", "Palak Paneer", "Paneer Bhurji (Gravy)", "Paneer Butter Masala", "Paneer Chettinad", "Paneer Do Pyaza", "Paneer Handi", "Paneer Kofta", "Paneer Kolhapuri", "Paneer Lababdar", "Paneer Makhani", "Paneer Pasanda", "Paneer Pyaza", "Paneer Rezala", "Paneer Tikka Masala", "Saag Paneer", "Shahi Paneer"], "South Indian": ["Aviyal", "Chettinad Veg Curry", "Kadala Curry", "Kalan", "Kerala Veg Stew", "Kootu", "Manga Curry", "Olan", "Pachadi", "Poriyal", "Rasam (Curry)", "Sambar", "Thoran"], "Soya & Tofu": ["Chilli Soya Chaap (Gravy)", "Soya Chaap Masala", "Soya Keema Masala", "Soya Kofta Curry", "Tofu Curry", "Tofu Tikka Masala"], "Vegetable": ["Aloo Gobi", "Aloo Makhani", "Aloo Matar", "Arbi Masala", "Baingan Bharta", "Bhindi Masala", "Cabbage Curry", "Chana Masala", "Chole Masala", "Drumstick Curry", "Dum Aloo", "Ivy Gourd (Tindora) Curry", "Kathal (Jackfruit) Curry", "Kofta Curry", "Lauki Kofta", "Matar Mushroom", "Matar Paneer", "Methi Matar Malai", "Mix Veg Curry", "Navratan Korma", "Pumpkin Curry", "Rajma Masala", "Raw Banana Curry", "Undhiyu", "Veg Handi", "Veg Jalfrezi", "Veg Kofta", "Veg Kolhapuri", "Yam Curry"]}}, "Dal & Lentils": {"Veg": {"Regional Dals": ["Bengali Musur Dal", "Dal Baati (Dal only)", "Dalitoy (Goan)", "Goan Dal", "Gujarati Dal", "Hyderabadi Khatti Dal", "Kootu Dal", "Maharashtrian Amti", "Rajasthani Panchmel Dal", "Rasam", "Sambar", "Sindhi Dal", "Tamil Paruppu"], "Split Lentils": ["Arhar Dal", "Chana Dal", "Chana Dal Fry", "Dal Fry", "Dal Tadka", "Dhuli Moong Dal", "Dhuli Urad Dal", "Lauki Dal", "Masoor Dal", "Moong Dal", "Palak Dal", "Tadka Urad Dal", "Toor Dal"], "Whole Lentils": ["Dal Makhani", "Kali Dal", "Maa Ki Dal", "Moth Dal", "Panchratna Dal", "Sabut Masoor Dal", "Urad Dal (Whole)"]}}, "Desserts": {"Asian Desserts": {"__items__": ["Annin Tofu", "Bingsu", "Bubur Sumsum", "Chendol", "Dorayaki", "Mango Pudding", "Mango Sticky Rice", "Matcha Ice Cream", "Mochi", "Red Bean Soup", "Sago Pudding", "Taro Ice Cream"]}, "Baked Desserts": {"__items__": ["Apple Crumble", "Banoffee Pie", "Biscuit Cake", "Blueberry Cheesecake", "Bread Pudding", "Carrot Cake", "Cheesecake", "Chocolate Brownie", "Chocolate Fondant", "Chocolate Lava Cake", "Chocolate Mousse", "Cookie", "Cr\u00e8me Br\u00fcl\u00e9e", "Lemon Tart", "Muffin", "New York Cheesecake", "Opera Cake", "Panna Cotta", "Profiteroles", "Red Velvet Cake", "Sticky Toffee Pudding", "Tiramisu", "\u00c9clair"]}, "Frozen Desserts": {"__items__": ["Butterscotch Ice Cream", "Cassata", "Chocolate Ice Cream", "Falooda", "Frozen Yoghurt", "Gelato", "Granita", "Ice Cream Sandwich", "Jamun Ice Cream", "Kulfi", "Mango Ice Cream", "Pistachio Ice Cream", "Softy Ice Cream", "Sorbet", "Strawberry Ice Cream", "Sundae", "Tender Coconut Ice Cream", "Vanilla Ice Cream"]}, "Indian Sweets": {"__items__": ["Badam Halwa", "Balushahi", "Basundi", "Besan Ladoo", "Boondi Ladoo", "Cham Cham", "Coconut Barfi", "Gajar Ka Halwa", "Ghevar", "Gulab Jamun", "Imarti", "Jalebi", "Kaju Katli", "Kala Jamun", "Kalakand", "Kheer", "Malpua", "Mishti Doi", "Moong Dal Halwa", "Motichoor Ladoo", "Mysore Pak", "Paal Payasam", "Pantua", "Payasam", "Peda", "Phirni", "Puran Poli (Dessert)", "Rabri", "Rasgulla", "Rasmalai", "Sandesh", "Semiya Kheer", "Shahi Tukda", "Shrikhand", "Suji Halwa"]}, "Waffles & Pancakes": {"__items__": ["American Pancakes", "Banana Pancake", "Blueberry Pancakes", "Chocolate Waffle", "Classic Pancakes", "Dutch Pancakes", "French Crepe (Sweet)", "Nutella Crepe", "Nutella Pancakes", "Strawberry Waffle", "Waffle with Ice Cream"]}}, "Grills, Kebabs & Tandoor": {"Non-Veg": {"Beef": ["BBQ Beef Ribs", "Beef Burger Patty Grill", "Beef Mixed Grill", "Beef Steak", "Grilled Beef Tenderloin"], "Chicken": ["Chicken Burrah Kebab", "Chicken Chapli Kebab", "Chicken Kakori Kebab", "Chicken Mixed Grill", "Chicken Reshmi Kebab", "Chicken Seekh Kebab", "Chicken Shashlik (Grill)", "Grilled Chicken", "Murgh Musallam (Tandoor)", "Piri Piri Grilled Chicken", "Tandoori Chicken (Full)", "Tandoori Chicken (Half)"], "Mutton & Lamb": ["Lamb Chops Grill", "Lamb Mixed Grill", "Mutton Boti Kebab", "Mutton Burrah", "Mutton Chapli Kebab", "Mutton Galouti Kebab", "Mutton Kakori Kebab", "Mutton Seekh Kebab", "Nalli (Lamb Shank) Grill"], "Pork": ["BBQ Pork Chops", "Pork Sausage Grill", "Pork Spare Ribs", "Pulled Pork"], "Seafood": ["Grilled Fish", "Grilled Salmon", "Prawn Mixed Grill", "Prawn Tandoori", "Tandoori Lobster", "Tandoori Pomfret", "Tawa Fish Tikka"]}, "Veg": {"Tandoor Veg": ["Paneer Tikka (Tandoor)", "Stuffed Tandoori Capsicum", "Tandoori Aloo", "Tandoori Baby Potatoes", "Tandoori Broccoli", "Tandoori Corn", "Tandoori Mixed Veg Platter", "Tandoori Mushroom", "Tandoori Pineapple"], "Veg Kebabs": ["Beetroot Kebab", "Corn Seekh Kebab", "Dahi Ke Kebab", "Hara Bhara Kebab", "Jackfruit Seekh Kebab", "Kathal Kebab", "Rajma Kebab", "Raw Banana Kebab"]}}, "Healthy & Diet": {"Egg": {"Egg-based": ["Boiled Egg Bowl", "Egg Salad Bowl", "Egg White Bhurji", "Egg White Omelette", "Poached Egg Bowl"]}, "Non-Veg": {"Chicken": ["Baked Chicken", "Chicken Quinoa Bowl", "Chicken Soup (Low Fat)", "Grilled Chicken Salad", "Poached Chicken Salad", "Steamed Chicken Dumplings"], "Seafood": ["Baked Salmon", "Grilled Tuna", "Prawn Salad", "Steamed Fish", "Steamed Prawn Bowl", "Tuna Salad Bowl"]}, "Veg": {"High Protein": ["Chickpea Salad", "Edamame Bowl", "Greek Yoghurt Bowl", "Lentil Soup", "Quinoa Bowl", "Rajma Bowl", "Soya Bowl", "Sprouts Salad Bowl", "Tofu Scramble"], "Jain": ["Jain Aloo Matar", "Jain Biryani", "Jain Chole", "Jain Dal Makhani", "Jain Methi Matar Malai", "Jain Paneer Tikka", "Jain Shahi Paneer"], "Keto / Low Carb": ["Avocado Salad", "Broccoli Stir Fry", "Cabbage Stir Fry", "Cauliflower Pizza Crust", "Cauliflower Rice Bowl", "Lettuce Wrap", "Spinach Paneer (Keto)", "Zucchini Lasagne", "Zucchini Noodles"], "Vegan": ["Coconut Curry (Vegan)", "Jackfruit Curry", "Lentil Dhal", "Mushroom & Spinach Bowl", "Oat Bowl", "Tempeh Stir Fry", "Tofu Stir Fry", "Vegan Biryani", "Vegan Buddha Bowl", "Vegan Burger", "Vegan Pasta"]}}, "Juices & Smoothies": {"Fresh Juices": {"__items__": ["Amla Juice", "Apple Juice", "Beetroot Juice", "Carrot Juice", "Celery Juice", "Cucumber Juice", "Ginger Shot", "Guava Juice", "Kiwi Juice", "Mixed Fruit Juice", "Mosambi Juice", "Orange Juice", "Papaya Juice", "Pineapple Juice", "Pomegranate Juice", "Sugarcane Juice", "Tomato Juice", "Turmeric Shot", "Watermelon Juice"]}, "Smoothies": {"__items__": ["Avocado Banana Smoothie", "Banana Smoothie", "Beet & Berry Smoothie", "Berry Blast Smoothie", "Blueberry A\u00e7a\u00ed Smoothie", "Dragon Fruit Smoothie", "Green Detox Smoothie", "Kale & Apple Smoothie", "Mango Smoothie", "Papaya Smoothie", "Peach Smoothie", "Peanut Butter Banana Smoothie", "Spinach Mango Smoothie", "Strawberry Smoothie", "Tropical Smoothie"]}}, "Kids Menu": {"Desserts & Shakes": {"__items__": ["Choco Lava Cake (Mini)", "Chocolate Milk", "Chocolate Sundae (Kids)", "Fruit Custard", "Fruit Jelly", "Ice Cream Scoop", "Kids Milkshake", "Vanilla Cone"]}, "Non-Veg": {"Chicken": ["Chicken Nuggets (Kids)", "Chicken Pasta (Kids)", "Chicken Popcorn (Kids)", "Chicken Soup (Kids)", "Chicken Strips with Fries", "Mini Chicken Burger", "Mini Chicken Pizza"]}, "Veg": {"Mains": ["Cheese Maggi", "Curd Rice (Kids)", "Mini Dosa", "Mini Veg Thali", "Pasta with Tomato Sauce", "Veg Khichdi", "Veg Noodles (Mild)"], "Snacks": ["Cheese Pizza Bites", "Corn Cheese Toast", "Fried Cheese Sticks", "Mac & Cheese", "Mini Idli", "Mini Paneer Pizza", "Mini Samosa", "Mini Veg Burger", "Potato Smiley", "Veg Nuggets"]}}, "Main Course": {"Egg": {"Egg Dry & Stir Fry": ["Egg Bhurji (Main)", "Egg Fried Rice (Main)", "Egg Pepper Fry", "Egg Stir Fry", "Egg Tawa Masala", "Egg Varuval", "Huevos Rancheros", "Masala Omelette (Main)", "Shakshuka (Main Course)"], "Egg Mains": ["Anda Keema Curry", "Egg Achari", "Egg Bhurji Gravy", "Egg Chettinad", "Egg Curry", "Egg Dakbungalow", "Egg Do Pyaza", "Egg Handi", "Egg Jalfrezi", "Egg Kadai", "Egg Kolhapuri", "Egg Korma", "Egg Makhani", "Egg Masala", "Egg Saag", "Nargisi Kofta Curry"]}, "Non-Veg": {"Beef": ["Beef Curry", "Beef Keema", "Beef Massaman Curry", "Beef Pot Roast", "Beef Rendang", "Beef Schezwan", "Beef Short Ribs Braised", "Beef Steak (Main)", "Beef Stir Fry", "Beef Stroganoff", "Beef Vindaloo", "Beef Xacuti", "Beef in Black Bean Sauce", "Korean Bulgogi", "Mongolian Beef"], "Chicken Curries & Gravies": ["Andhra Chicken Curry", "Butter Chicken", "Chettinad Pepper Chicken", "Chicken Achari", "Chicken Ambur Style", "Chicken Cafreal", "Chicken Changezi", "Chicken Chettinad", "Chicken Dakbungalow", "Chicken Do Pyaza", "Chicken Ghee Roast", "Chicken Handi", "Chicken Jalfrezi", "Chicken Keema Masala", "Chicken Kofta Curry", "Chicken Kolhapuri", "Chicken Korma", "Chicken Kosha (Bengali)", "Chicken Lababdar", "Chicken Makhani", "Chicken Methi", "Chicken Mughlai", "Chicken Pasanda", "Chicken Patiala", "Chicken Paya", "Chicken Rezala", "Chicken Rezala (Bengali)", "Chicken Saag", "Chicken Sukka", "Chicken Tikka Handi", "Chicken Tikka Masala", "Chicken Xacuti", "Dhaba Chicken Curry", "Kadai Chicken", "Kashmiri Chicken Curry", "Kerala Chicken Curry", "Murg Musallam"], "Chicken Dry & Stir Fry": ["Andhra Chicken Fry", "Chicken 65 Masala", "Chicken Chilli (Gravy)", "Chicken Ghee Roast (Dry)", "Chicken Keema (Dry)", "Chicken Manchurian (Gravy)", "Chicken Pepper Fry", "Chicken Schezwan", "Chicken Stir Fry", "Chicken Sukka Dry", "Chicken Szechuan", "Chicken Tawa Masala", "Chicken Varuval", "General Tso's Chicken", "Honey Garlic Chicken", "Kadai Chicken (Dry)", "Kung Pao Chicken", "Singapore Chicken", "Teriyaki Chicken", "Thai Basil Chicken"], "International Mains": ["Beef Bourguignon", "Beef Lasagne", "Butter Garlic Lobster", "Chicken Bibimbap", "Chicken Cacciatore", "Chicken Katsu Curry", "Chicken Lasagne", "Chicken Pad See Ew", "Chicken Paella", "Chicken Parmigiana", "Chicken Piccata", "Chicken Steak", "Chicken Tagine", "Coq au Vin", "Duck Confit", "Fish & Chips", "Japanese Chicken Teriyaki", "Japanese Salmon Teriyaki", "Korean Dakgalbi", "Lamb Rogan (International)", "Lamb Shepherd's Pie", "Lamb Tagine", "Seafood Paella", "Thai Green Curry (Chicken)", "Thai Green Curry (Prawn)", "Thai Massaman (Chicken)", "Thai Red Curry (Chicken)", "Thai Red Curry (Prawn)", "Tonkatsu", "Whole Grilled Fish"], "Mutton & Lamb": ["Keema Matar", "Lamb Karahi", "Lamb Saag", "Lamb Vindaloo", "Mutton Achari", "Mutton Afghani", "Mutton Chaap", "Mutton Changezi", "Mutton Chettinad", "Mutton Dakbungalow", "Mutton Do Pyaza", "Mutton Ghee Roast", "Mutton Handi", "Mutton Jalfrezi", "Mutton Kadai", "Mutton Keema", "Mutton Keema Masala", "Mutton Kofta Curry", "Mutton Kolhapuri", "Mutton Korma", "Mutton Kosha (Bengali)", "Mutton Lababdar", "Mutton Mughlai", "Mutton Nihari", "Mutton Pasanda", "Mutton Paya", "Mutton Paya Curry", "Mutton Rezala", "Mutton Rogan Josh", "Mutton Safed Maas", "Mutton Sukka", "Mutton Yakhni", "Nalli Curry", "Nalli Nihari", "Rajasthani Laal Maas", "Rogan Josh (Kashmiri Style)"], "Pork": ["Char Siu Pork", "Pork Adobo", "Pork Bafat", "Pork Belly Braised", "Pork Belly Curry", "Pork Chops with Gravy", "Pork Curry (Coorg)", "Pork Keema", "Pork Ribs Curry", "Pork Sausage Curry", "Pork Schezwan", "Pork Sorpotel", "Pork Stir Fry", "Pork Vindaloo", "Pulled Pork (Main)", "Sweet & Sour Pork"], "Seafood Curries & Mains": ["Andhra Fish Curry", "Bengali Fish Curry", "Butter Garlic Prawns", "Chettinad Fish Curry", "Clam Masala", "Crab Curry (Coastal)", "Crab Ghee Roast", "Crab Masala", "Doi Maach", "Fish Ambotik", "Fish Curry", "Fish Ghee Roast", "Fish Molee", "Fish Recheado", "Fish Tikka Masala", "Goan Fish Curry", "Goan Prawn Curry", "Hilsa (Ilish) Curry", "Kerala Prawn Curry", "King Fish (Surmai) Curry", "Lobster Butter Masala", "Lobster Masala", "Machher Jhol", "Malabar Fish Curry", "Mangalorean Fish Curry", "Mussel Masala", "Oyster Masala", "Pomfret Curry", "Prawn Balch\u00e3o", "Prawn Curry (Coastal)", "Prawn Ghee Roast", "Prawn Koliwada Curry", "Prawn Masala", "Prawn Saagwala", "Rawas Curry", "Squid Masala", "Squid Sukka", "Tawa Fish Masala"], "Seafood Dry & Stir Fry": ["Chettinad Prawn Fry", "Chilli Prawn (Gravy)", "Crispy Fried Fish", "Fish Pepper Fry", "Fish Tawa Fry", "Fish Varuval", "Garlic Butter Prawn", "Honey Soy Fish", "Kung Pao Prawn", "Pepper Prawns", "Prawn Schezwan", "Prawn Stir Fry", "Tawa Prawns", "Teriyaki Salmon", "Thai Basil Prawn"]}, "Veg": {"International Mains": ["Agedashi Tofu", "Falafel Platter", "Japanese Tofu Teriyaki", "Korean Tofu Stew (Sundubu)", "Mapo Tofu (Veg)", "Massaman Curry (Veg)", "Mexican Rice & Beans", "Mushroom Risotto", "Pad See Ew (Veg)", "Ratatouille", "Shakshuka (Main)", "Stuffed Bell Peppers", "Thai Green Curry (Veg)", "Thai Red Curry (Veg)", "Thai Yellow Curry (Veg)", "Veg Bibimbap", "Veg Burrito Bowl (Main)", "Veg Lasagne", "Veg Moussaka", "Veg Paella", "Veg Shepherd's Pie", "Veg Tagine"], "Legumes & Pulses": ["Chana Masala (Main)", "Chole Chawal (Combo)", "Ghugni", "Kala Chana Curry", "Lobiya Curry", "Matki Usal", "Misal (Main)", "Moth Beans Curry", "Pav Bhaji (Main Course)", "Rajma Chawal (Combo)", "Sprouted Moong Curry", "Val Dal Curry"], "North Indian Regional Mains": ["Aloo Posto", "Amritsari Chole", "Besan ki Sabzi", "Bihari Chana Ghugni", "Cholar Dal (Main)", "Dal Baati Churma", "Dhokar Dalna", "Enchor (Jackfruit) Dalna", "Gatte ki Sabzi", "Hariyali Kofta", "Kashmiri Dum Aloo", "Kashmiri Nadru Yakhni", "Kashmiri Rajma", "Litti Chokha", "Methi Thepla Sabzi", "Mochar Ghonto", "Rajasthani Panchmel Dal (Main)", "Shukto", "Sindhi Kadhi"], "Paneer Dishes": ["Achari Paneer", "Kadai Paneer", "Matar Paneer", "Methi Paneer", "Palak Paneer", "Paneer Afghani Curry", "Paneer Angara", "Paneer Bhurji", "Paneer Butter Masala", "Paneer Chettinad", "Paneer Do Pyaza", "Paneer Handi", "Paneer Jalfrezi", "Paneer Kali Mirch", "Paneer Kofta Curry", "Paneer Kolhapuri", "Paneer Lababdar", "Paneer Makhani", "Paneer Mughlai", "Paneer Pasanda", "Paneer Pyaza", "Paneer Rezala", "Paneer Saag", "Paneer Tikka Masala", "Paneer Zafrani Curry", "Shahi Paneer"], "South Indian Mains": ["Aviyal", "Bisi Bele Bath (Main)", "Chettinad Veg Curry", "Erissery", "Kadala Curry", "Kalan", "Kerala Veg Stew", "Kolhapuri Veg", "Kootu", "Manga Curry", "Mor Kuzhambu", "Olan", "Pachadi", "Poriyal", "Pulissery", "Rasam (Main)", "Raw Jackfruit Stew", "Sambar (Main Course)", "Tendli Masala", "Thoran", "Ulli Theeyal", "Vangi Bath (Main)"], "Soya & Protein Dishes": ["Chilli Soya Chaap (Gravy)", "Soya Chaap Masala", "Soya Chunks Curry", "Soya Keema Masala", "Soya Kofta Curry", "Soya Pulao (Main)", "Tempeh Curry", "Tofu Curry", "Tofu Stir Fry", "Tofu Tikka Masala"], "Stir Fry & Dry Dishes": ["Baby Corn Stir Fry", "Broccoli Stir Fry", "Chilli Mushroom (Gravy)", "Chilli Paneer (Gravy)", "Chilli Tofu (Gravy)", "Corn Stir Fry", "Gobi Manchurian (Gravy)", "Karahi Vegetables", "Kung Pao Vegetables", "Mushroom Manchurian (Gravy)", "Paneer Manchurian (Gravy)", "Pepper Mushroom Dry", "Singapore Stir Fry (Veg)", "Szechuan Vegetables", "Teriyaki Vegetables", "Thai Basil Stir Fry (Veg)", "Veg Stir Fry"], "Vegetable Dishes": ["Aloo Chole", "Aloo Gobi", "Aloo Makhani", "Aloo Matar", "Aloo Palak", "Aloo Tamatar", "Arbi Masala", "Baingan Bharta", "Besan Gatte ki Sabzi", "Bhindi Do Pyaza", "Bhindi Masala", "Cabbage Sabzi", "Cauliflower Masala", "Chana Masala", "Chole Masala", "Drumstick Curry", "Dum Aloo", "Ivy Gourd (Tindora) Masala", "Jeera Aloo", "Kachori Sabzi", "Karela Masala", "Kathal (Jackfruit) Curry", "Ker Sangri", "Lauki Kofta", "Lauki Sabzi", "Matar Mushroom", "Matar ka Nimona", "Methi Matar Malai", "Mix Veg Curry", "Navratan Korma", "Pindi Chole", "Pumpkin Curry", "Rajma Masala", "Raw Banana Curry", "Tinda Masala", "Undhiyu", "Veg Handi", "Veg Jalfrezi", "Veg Kofta Curry", "Veg Kolhapuri", "Veg Xacuti", "Yam (Suran) Curry"]}}, "Momos & Dumplings": {"Non-Veg": {"Chicken": ["Chicken Afghani Momos", "Chicken Dim Sum", "Chicken Gyoza", "Chicken Jhol Momos", "Chicken Kurkure Momos", "Chicken Mandu", "Chicken Momos (Fried)", "Chicken Momos (Steamed)", "Chicken Potstickers", "Chicken Soup Momos", "Chicken Wontons"], "Pork": ["Pork Gyoza", "Pork Mandu", "Pork Potstickers", "Pork Siu Mai", "Pork Wontons", "Pork Xiao Long Bao"], "Seafood": ["Crab Dim Sum", "Prawn Dim Sum", "Prawn Gyoza", "Prawn Har Gow", "Prawn Siu Mai", "Prawn Wontons", "Seafood Dumplings"]}, "Veg": {"Asian Dumplings": ["Edamame Gyoza", "Kimchi Dumplings", "Veg Dim Sum", "Veg Har Gow", "Veg Mandu", "Veg Potstickers", "Veg Siu Mai", "Veg Wontons", "Veg Xiao Long Bao"], "Momos": ["Cheese Corn Momos", "Chocolate Momos", "Fried Veg Momos", "Kurkure Momos", "Pan-Fried Veg Momos", "Spinach Corn Momos", "Steamed Veg Momos", "Veg Afghani Momos", "Veg Jhol Momos", "Veg Soup Momos", "Veg Tandoori Momos"]}}, "Noodles & Pasta": {"Egg": {"Egg-based": ["Egg Chow Mein", "Egg Fried Noodles", "Egg Hakka Noodles", "Egg Lo Mein", "Egg Pad Thai", "Egg Pasta", "Egg Schezwan Noodles"]}, "Non-Veg": {"Chicken": ["Chicken Alfredo", "Chicken Bolognese", "Chicken Carbonara", "Chicken Dan Dan Noodles", "Chicken Hakka Noodles", "Chicken Laksa", "Chicken Lo Mein", "Chicken Mie Goreng", "Chicken Pad Thai", "Chicken Pasta Bake", "Chicken Pho", "Chicken Ramen", "Chicken Schezwan Noodles", "Chicken Singapore Noodles", "Chicken Yakisoba", "Pesto Chicken Pasta"], "Mutton & Lamb": ["Mutton Hakka Noodles", "Mutton Keema Pasta", "Mutton Schezwan Noodles"], "Seafood": ["Crab Pasta", "Prawn Laksa", "Prawn Linguine", "Prawn Noodles", "Prawn Pad See Ew", "Seafood Lo Mein", "Seafood Mie Goreng", "Seafood Pad Thai", "Seafood Ramen"]}, "Veg": {"Asian Noodles": ["Glass Noodle Salad", "Korean Japchae (Veg)", "Pad Thai (Veg)", "Veg Laksa", "Veg Mie Goreng", "Veg Pho", "Veg Ramen", "Veg Soba Noodles", "Veg Udon", "Veg Vermicelli", "Veg Yakisoba"], "Indian-Chinese Noodles": ["Singapore Noodles (Veg)", "Veg Chow Mein", "Veg Crispy Noodles", "Veg Dan Dan Noodles", "Veg Hakka Noodles", "Veg Lo Mein", "Veg Mei Fun", "Veg Schezwan Noodles"], "Italian Pasta": ["Fettuccine Alfredo (Veg)", "Fusilli Primavera", "Gnocchi with Tomato Sauce", "Mac & Cheese", "Mushroom Pasta", "Pasta Bake (Veg)", "Pasta Carbonara (Veg)", "Penne Arrabbiata", "Penne Pesto", "Ravioli (Veg)", "Rigatoni Arrabbiata", "Spaghetti Aglio e Olio", "Spaghetti Marinara", "Spinach Ricotta Pasta"]}}, "Party Platters": {"Non-Veg": {"Meal Platters": ["Chicken + Mutton Combo Pack", "Chicken Biryani Party Pack", "Mixed Grill Party Platter", "Mutton Biryani Party Pack", "Non-Veg Thali Party Pack", "Seafood Party Pack"], "Snack Platters": ["Chicken Tikka Platter", "Kebab Platter", "Mixed Grill Platter", "Non-Veg Starter Platter", "Seafood Starter Platter"]}, "Veg": {"Meal Platters": ["Dal Makhani + Rice Pack", "Paneer Combo Pack", "South Indian Veg Meal Pack", "Veg Biryani Party Pack", "Veg Thali Party Pack"], "Snack Platters": ["Chaat Platter", "Finger Food Veg Box", "Nachos Platter", "Pakoda Platter", "Tikka Platter (Veg)", "Veg Mezze Platter (Party)", "Veg Starter Platter"]}}, "Pizza": {"Non-Veg": {"Chicken": ["BBQ Chicken Pizza", "BBQ Chicken Tikka Pizza", "Buffalo Chicken Pizza", "Chicken & Jalape\u00f1o", "Chicken Kheema Pizza", "Chicken Makhani Pizza", "Chicken Pepperoni", "Chicken Peri Peri Pizza", "Chicken Schezwan Pizza", "Chicken Tikka Pizza", "Keema & Onion Pizza"], "Pepperoni & Sausage": ["Chorizo Pizza", "Classic Pepperoni", "Double Pepperoni", "Italian Sausage & Peppers", "Meat Lover's Pizza", "Salami Pizza", "Sausage & Mushroom"], "Seafood": ["Anchovy Pizza", "Crab & Cream Cheese Pizza", "Prawn & Garlic Pizza", "Seafood Pizza", "Smoked Salmon Pizza", "Tuna Pizza"]}, "Veg": {"Classic Veg": ["Capsicum & Onion Pizza", "Corn & Cheese Pizza", "Farmhouse", "Four Cheese Pizza", "Garden Fresh Pizza", "Margherita", "Mexican Wave (Veg)", "Mushroom & Olive", "Paneer Tikka Pizza", "Peri Peri Veg Pizza", "Spinach & Ricotta", "Triple Cheese", "Veggie Supreme"], "Gourmet Veg": ["Avocado Pizza", "Beetroot & Goat Cheese Pizza", "Caramelised Onion Pizza", "Fig & Brie Pizza", "Pesto & Sun-Dried Tomato", "Roasted Garlic & Artichoke", "Truffle Mushroom Pizza"]}}, "Rice & Biryani": {"Egg": {"Egg-based": ["Double Egg Biryani", "Egg Biryani", "Egg Fried Rice", "Egg Masala Rice", "Egg Pulao"]}, "Non-Veg": {"Chicken": ["Ambur Chicken Biryani", "Burnt Garlic Chicken Fried Rice", "Chettinad Chicken Biryani", "Chicken Dum Biryani", "Chicken Fried Rice", "Chicken Keema Rice", "Chicken Pulao", "Chicken Schezwan Fried Rice", "Chicken Singapore Rice", "Chicken Tehri", "Chicken Tikka Biryani", "Hyderabadi Chicken Biryani", "Kolkata Chicken Biryani", "Lucknowi Chicken Biryani"], "Mutton & Lamb": ["Hyderabadi Mutton Biryani", "Kolkata Mutton Biryani", "Lamb Biryani", "Lucknowi Mutton Biryani", "Mutton Dum Biryani", "Mutton Keema Rice", "Mutton Pulao", "Mutton Tehri", "Mutton Yakhni Pulao"], "Pork": ["Pork Biryani", "Pork Fried Rice", "Pork Keema Rice"], "Seafood": ["Crab Fried Rice", "Fish Biryani", "Lobster Biryani", "Malabar Prawn Biryani", "Prawn Biryani", "Prawn Pulao", "Seafood Fried Rice", "Thalassery Fish Biryani"]}, "Veg": {"Biryani": ["Aloo Biryani", "Corn Biryani", "Hyderabadi Veg Biryani", "Kathal (Jackfruit) Biryani", "Lucknowi Veg Biryani", "Mushroom Biryani", "Paneer Biryani", "Soya Chaap Biryani", "Tawa Veg Biryani", "Veg Dum Biryani", "Vegetable Biryani"], "Khichdi & Others": ["Bajra Khichdi", "Bisi Bele Bath", "Coconut Milk Rice", "Curd Rice", "Ellu Sadam", "Karivepillai Sadam", "Lemon Rice", "Masala Khichdi", "Moong Dal Khichdi", "Puliyodarai", "Sabudana Khichdi", "Tamarind Rice", "Vangi Bath"], "Pulao & Fried Rice": ["Basil Fried Rice (Veg)", "Burnt Garlic Fried Rice (Veg)", "Coconut Rice", "Corn Fried Rice", "Ghee Rice", "Jeera Rice", "Kashmiri Pulao", "Matar Pulao", "Pineapple Fried Rice", "Schezwan Fried Rice (Veg)", "Singapore Rice (Veg)", "Veg Fried Rice", "Veg Pulao", "Veg Tehri"]}}, "Rolls, Wraps & Sandwiches": {"Egg": {"Egg-based": ["Egg Kathi Roll", "Egg Mayo Sandwich", "Egg Roll", "Egg Sandwich", "Egg Wrap", "Omelette Roll"]}, "Non-Veg": {"Chicken": ["Chicken BLT", "Chicken Burrito", "Chicken Cheese Roll", "Chicken Club Sandwich", "Chicken Kathi Roll", "Chicken Peri Peri Roll", "Chicken Pesto Wrap", "Chicken Schezwan Roll", "Chicken Shawarma", "Chicken Sub", "Chicken Tikka Roll", "Chicken Tikka Sandwich", "Grilled Chicken Wrap"], "Mutton & Lamb": ["Lamb Shawarma", "Lamb Wrap", "Mutton Boti Roll", "Mutton Kathi Roll", "Mutton Seekh Roll"], "Seafood": ["Fish Roll", "Fish Tikka Roll", "Prawn Baguette", "Prawn Roll", "Prawn Wrap", "Tuna Sandwich"]}, "Veg": {"Kathi Rolls": ["Aloo Tikki Roll", "Cheese Kathi Roll", "Corn & Cheese Roll", "Dal Makhani Roll", "Hara Bhara Roll", "Mixed Veg Roll", "Mushroom Roll", "Paneer Kathi Roll", "Soya Chaap Roll"], "Sandwiches": ["Bombay Sandwich", "Caprese Sandwich", "Cheese & Tomato Sandwich", "Corn & Cheese Sandwich", "Cucumber Sandwich", "Grilled Cheese Sandwich", "Masala Sandwich", "Mushroom Sandwich", "Paneer Tikka Sandwich", "Pesto & Cheese Sandwich", "Veg BLT", "Veg Club Sandwich", "Veg Sub"], "Wraps & Burritos": ["Corn & Black Bean Burrito", "Falafel Wrap", "Greek Veg Wrap", "Hummus & Veggie Wrap", "Mexican Veg Wrap", "Paneer Wrap", "Shawarma (Veg)", "Veg Burrito", "Veg Tacos Wrap"]}}, "Salads": {"Egg": {"Egg-based": ["Classic Egg Salad", "Devilled Egg Salad", "Egg & Avocado Salad", "Egg Salad"]}, "Non-Veg": {"Chicken": ["BBQ Chicken Salad", "Chicken Avocado Salad", "Chicken Caesar Salad", "Chicken Pesto Salad", "Chicken Waldorf Salad", "Grilled Chicken Salad", "Thai Chicken Salad"], "Seafood": ["Crab Salad", "Lobster Salad", "Prawn Avocado Salad", "Prawn Louis Salad", "Seafood Nicoise", "Smoked Salmon Salad", "Tuna Salad"]}, "Veg": {"Asian": ["Edamame Salad", "Japanese Cucumber Salad", "Korean Japchae Salad", "Lotus Root Salad", "Mango Salad", "Sesame Noodle Salad", "Som Tam (Papaya Salad)", "Thai Mango Salad"], "Indian": ["Beet & Carrot Salad", "Corn Salad", "Kachumber Salad", "Moong Salad", "Onion Tomato Salad", "Peanut Salad", "Raita Salad", "Sprouts Salad"], "International": ["Arugula & Parmesan", "Beetroot & Goat Cheese", "Caesar Salad (Veg)", "Caprese Salad", "Coleslaw", "Fattoush", "Greek Salad", "Nicoise Salad (Veg)", "Pesto Pasta Salad", "Quinoa Salad", "Tabbouleh", "Waldorf Salad", "Watermelon Feta Salad"]}}, "Sides & Accompaniments": {"Non-Veg": {"Chicken Sides": ["Chicken Liver Fry", "Chicken Nuggets", "Chicken Satay Skewers (Side)", "Chicken Strips", "Mini Chicken Tikka (Side)"]}, "Veg": {"Dips & Chutneys": ["Baba Ganoush", "Blue Cheese Dip", "Chipotle Sauce", "Cocktail Sauce", "Garlic Mayo", "Hummus", "Mint Chutney", "Peanut Sauce", "Ranch Dip", "Salsa", "Sour Cream Dip", "Sriracha Dip", "Sweet Chilli Sauce", "Tamarind Chutney", "Tzatziki"], "Fried Sides": ["Cajun Fries", "Cheese Balls", "Cheese Fries", "Corn Ribs", "French Fries", "Hash Browns", "Loaded Fries", "Masala Fries", "Mushroom Fries", "Onion Rings", "Peri Peri Fries", "Sweet Potato Fries", "Waffle Fries", "Zucchini Fries"], "Papad & Pickle": ["Cauliflower Pickle", "Fried Papad", "Green Chilli Pickle", "Lemon Pickle", "Mango Pickle", "Masala Papad", "Mixed Pickle", "Papad", "Roasted Papad"], "Raita & Curd": ["Boondi Raita", "Cucumber Raita", "Curd", "Lauki Raita", "Mint Raita", "Mixed Raita", "Onion Tomato Raita", "Pineapple Raita", "Plain Raita", "Shrikhand (Side)"]}}, "Soups": {"Egg": {"Egg-based": ["Egg Drop Soup", "Egg Flower Soup", "Stracciatella Soup"]}, "Non-Veg": {"Chicken": ["Chicken Clear Soup", "Chicken Corn Chowder", "Chicken Laksa", "Chicken Manchow Soup", "Chicken Mulligatawny", "Chicken Noodle Soup", "Chicken Sweet Corn Soup", "Chicken Tortilla Soup", "Chicken Wonton Soup", "Cream of Chicken", "Hot & Sour Soup (Chicken)", "Thai Chicken Soup", "Tom Kha Gai"], "Mutton & Lamb": ["Lamb Broth", "Lamb Noodle Soup", "Mutton Shorba", "Mutton Yakhni", "Nalli Shorba"], "Seafood": ["Clam Chowder", "Crab Soup", "Fish Soup", "Lobster Bisque", "Prawn Bisque", "Prawn Tom Yum", "Seafood Tom Yum", "Thai Fish Soup"]}, "Veg": {"Asian Style": ["Hot & Sour Soup (Veg)", "Kimchi Soup (Veg)", "Korean Doenjang Jjigae (Veg)", "Laksa (Veg)", "Manchow Soup (Veg)", "Miso Soup", "Thai Green Curry Soup (Veg)", "Tom Kha (Veg)", "Wonton Soup (Veg)"], "Broth & Clear": ["Beetroot Soup", "Carrot Ginger Soup", "Corn Chowder", "Gazpacho", "Lentil Soup", "Minestrone", "Onion Soup", "Spinach Soup", "Sweet Corn Soup", "Tomato Soup", "Veg Noodle Soup", "Vegetable Clear Soup"], "Cream & Bisque": ["Cream of Asparagus", "Cream of Broccoli", "Cream of Celery", "Cream of Mushroom", "Cream of Spinach", "Leek & Potato Soup", "Pumpkin Soup", "Roasted Red Pepper Soup", "Sweet Potato Soup"]}}, "Starters & Appetisers": {"Egg": {"Egg-based": ["Anda Fry", "Devilled Eggs", "Egg Bhurji", "Egg Cutlet", "Egg Pakoda", "Egg Puff", "Half Boiled Egg with Toast", "Masala Egg", "Scotch Eggs"]}, "Non-Veg": {"Chicken": ["Buffalo Chicken Wings", "Chicken 65", "Chicken Achari Tikka", "Chicken Afghani Tikka", "Chicken Angara Tikka", "Chicken Cheese Balls", "Chicken Cutlet", "Chicken Drumsticks", "Chicken Fingers", "Chicken Hariyali Tikka", "Chicken Kali Mirch Tikka", "Chicken Lollipop", "Chicken Malai Tikka", "Chicken Manchurian", "Chicken Pahadi Tikka", "Chicken Pakoda", "Chicken Peri Peri", "Chicken Popcorn", "Chicken Reshmi Kebab (Starter)", "Chicken Satay", "Chicken Shashlik", "Chicken Spring Roll", "Chicken Tempura", "Chicken Tikka", "Chicken Wings", "Chilli Chicken", "Crispy Fried Chicken", "Peri Peri Chicken", "Tandoori Chicken"], "Mutton & Lamb": ["Galouti Kebab", "Lamb Chops", "Lamb Tikka", "Mutton Boti Kebab", "Mutton Burrah", "Mutton Chapli Kebab", "Mutton Cutlet", "Mutton Kakori Kebab", "Mutton Kola Urundai", "Mutton Pattice", "Mutton Seekh Kebab", "Mutton Shammi Kebab", "Mutton Spring Roll"], "Pork": ["Chilli Pork (Dry)", "Crispy Pork Belly", "Pork Belly Bites", "Pork Chops", "Pork Crackling", "Pork Ribs", "Pork Sausage Platter"], "Seafood": ["Calamari Rings", "Chilli Prawn (Dry)", "Crab Claws", "Fish 65", "Fish Cutlet", "Fish Fingers", "Fish Pakoda", "Fish Tikka", "Lobster Starter", "Prawn 65", "Prawn Koliwada", "Prawn Satay", "Prawn Spring Roll", "Prawn Tempura", "Tawa Fish"]}, "Veg": {"Cauliflower-based": ["Achari Gobi", "Cauliflower 65", "Chilli Cauliflower", "Chilli Gobi", "Gobi 65", "Gobi Manchurian", "Gobi Pakoda", "Gobi Seekh Kebab", "Tandoori Gobi"], "Dips & Platters": ["Bruschetta", "Crud\u00e9s with Dip", "Guacamole with Nachos", "Hummus with Pita", "Nachos with Dips", "Paneer Mezze", "Veg Antipasto Platter", "Veg Mezze Platter"], "Fried Snacks": ["Bread Pakoda", "Cheese Pakoda", "Chilli Cheese Toast", "Corn Pakoda", "Dal Vada", "Kachori", "Macaroni Bites", "Medu Vada (Starter)", "Mixed Veg Pakoda", "Mysore Bonda", "Nachos", "Onion Pakoda", "Paneer Pakoda", "Pani Puri (Starter)", "Potato Chips", "Punugulu", "Samosa", "Spinach Pakoda", "Veg Cutlet", "Veg Puff", "Veg Spring Roll"], "Mushroom-based": ["Chilli Mushroom (Dry)", "Crispy Mushroom", "Mushroom 65", "Mushroom Galawat", "Mushroom Manchurian (Dry)", "Mushroom Pepper Fry", "Mushroom Satay", "Mushroom Spring Roll", "Mushroom Tikka", "Stuffed Mushroom"], "Paneer-based": ["Chilli Paneer (Dry)", "Paneer 65", "Paneer Achari Tikka", "Paneer Afghani Tikka", "Paneer Angara Tikka", "Paneer Bhurji (Starter)", "Paneer Do Pyaza (Starter)", "Paneer Hariyali Tikka", "Paneer Kali Mirch Tikka", "Paneer Lababdar Tikka", "Paneer Malai Tikka", "Paneer Manchurian (Dry)", "Paneer Pahadi Tikka", "Paneer Seekh Kebab", "Paneer Shashlik", "Paneer Tikka", "Paneer Zafrani Tikka"], "Potato-based": ["Aloo 65", "Aloo Tikki", "Baby Potatoes Tandoori", "Batata Vada", "Chilli Potato", "Crispy Corn", "Dahi Aloo Tikki", "Hara Bhara Tikki", "Jeera Aloo (Starter)", "Loaded Potato Skins", "Masala Aloo Tikki", "Potato Skins", "Potato Wedges"], "Soya & Tofu": ["Afghani Soya Chaap", "Chilli Soya Chaap", "Chilli Tofu", "Malai Soya Chaap", "Soya Chaap (Dry)", "Soya Chaap Tikka", "Soya Seekh Kebab", "Tofu Manchurian (Dry)", "Tofu Satay", "Tofu Tikka"]}}, "Tacos & Mexican": {"Non-Veg": {"Beef": ["Beef Burrito Bowl", "Beef Enchiladas", "Beef Fajitas", "Beef Quesadilla", "Beef Taco"], "Chicken": ["BBQ Chicken Taco", "Chicken Burrito Bowl", "Chicken Enchiladas", "Chicken Fajitas", "Chicken Quesadilla", "Chicken Taco", "Chipotle Chicken Bowl"], "Seafood": ["Fish Taco", "Lobster Taco", "Prawn Taco", "Shrimp Burrito Bowl", "Shrimp Taco"]}, "Veg": {"Nachos & Bowls": ["Guacamole Bowl", "Loaded Nachos (Veg)", "Mexican Rice Bowl (Veg)", "Nachos with Salsa", "Salsa & Chips", "Veg Burrito Bowl", "Veg Enchiladas"], "Quesadillas": ["Black Bean Quesadilla", "Cheese Quesadilla", "Mushroom Quesadilla", "Paneer Quesadilla", "Spinach & Corn Quesadilla", "Veg Quesadilla"], "Tacos": ["Avocado Taco", "Black Bean Taco", "Cauliflower Taco", "Mushroom Taco", "Paneer Taco", "Sweet Potato Taco", "Veg Taco"]}}, "Thali & Combos": {"Egg": {"Egg-based": ["Egg Lunch Box", "Egg Meal Combo", "Egg Thali"]}, "Non-Veg": {"Indian Thalis": ["Andhra Chicken Thali", "Bengali Fish Thali", "Chicken Chettinad Thali", "Chicken Thali", "Fish Thali", "Goan Fish Thali", "Mutton Thali", "Prawn Thali"], "Meal Combos": ["Chicken Meal Combo", "Family Non-Veg Pack", "Lunch Box (Non-Veg)", "Office Lunch (Non-Veg)", "Student Meal (Non-Veg)", "Tiffin Combo (Non-Veg)"]}, "Veg": {"Indian Thalis": ["Bengali Veg Thali", "Chhattisgarhi Thali", "Gujarati Thali", "Karnataka Thali", "Kashmiri Veg Wazwan", "Maharashtrian Thali", "North Indian Veg Thali", "Odia Thali", "Punjabi Veg Thali", "Rajasthani Thali", "South Indian Veg Thali"], "Meal Combos": ["Economy Meal (Veg)", "Family Veg Pack", "Lunch Box (Veg)", "Office Lunch (Veg)", "Student Meal (Veg)", "Tiffin Combo (Veg)", "Veg Meal Combo"]}}};
 
-const BEV_CATS = new Set(['Beverages (Cold)','Beverages (Hot)','Desserts','Juices & Smoothies','Kids Menu']);
-
-const L2_ORDER = [
-  'Starters & Appetisers','Soups','Salads','Breads','Breakfast',
-  'Main Course','Curries & Gravies','Dal & Lentils','Rice & Biryani',
-  'Noodles & Pasta','Momos & Dumplings','Burgers','Pizza',
-  'Rolls, Wraps & Sandwiches','Tacos & Mexican','Chaat & Street Food',
-  'Grills, Kebabs & Tandoor','Thali & Combos','Sides & Accompaniments',
-  'Healthy & Diet','Kids Menu','Party Platters',
-  'Beverages (Hot)','Beverages (Cold)','Juices & Smoothies','Desserts'
-];
-
-const DIET_MAP   = { Veg:'veg', 'Non-Veg':'nv', Egg:'egg' };
-const DIET_COLOR = { veg:'#4ade80', nv:'#f87171', egg:'#fbbf24', na:'#94a3b8' };
-const DIET_LABEL = { veg:'Veg', nv:'Non-Veg', egg:'Egg', na:'General' };
+const BEV_CATS = new Set(["Beverages (Cold)","Beverages (Hot)","Desserts","Juices & Smoothies","Kids Menu"]);
+const DIET_MAP   = {Veg:"veg","Non-Veg":"nv",Egg:"egg"};
+const DIET_COLOR = {veg:"#4ade80",nv:"#f87171",egg:"#fbbf24",na:"#94a3b8"};
+const DIET_LABEL = {veg:"Veg",nv:"Non-Veg",egg:"Egg",na:"General"};
 
 const L2_COUNTS = {};
 for (const [l2,l3s] of Object.entries(DATA)) {
@@ -221,235 +256,279 @@ for (const [l2,l3s] of Object.entries(DATA)) {
   L2_COUNTS[l2] = c;
 }
 
-let selL2=null, selL3=null, selL4=null, selDiet=null;
-let activeDiets = new Set();
-let searchQ = '';
+let selL2 = null, activeDiets = new Set(), searchQ = "";
+const isMob = () => window.innerWidth <= 768;
+
+function mobileTo(panel) {
+  const b = document.getElementById("bodyEl");
+  b.classList.remove("mob-p2","mob-p3");
+  if (panel === "p2") b.classList.add("mob-p2");
+  if (panel === "p3") b.classList.add("mob-p3");
+}
+
+document.getElementById("logoBtn").addEventListener("click", resetHome);
+document.getElementById("p2Back").addEventListener("click", () => mobileTo("p1"));
+document.getElementById("p3Back").addEventListener("click", () => mobileTo("p2"));
+document.getElementById("searchBox").addEventListener("input", function(){ doSearch(this.value); });
+["veg","nv","egg"].forEach(diet => {
+  document.getElementById("btn-"+diet).addEventListener("click", function(){
+    if (activeDiets.has(diet)) { activeDiets.delete(diet); this.classList.remove("on"); }
+    else { activeDiets.add(diet); this.classList.add("on"); }
+    if (searchQ) doSearch(searchQ);
+    else if (selL2) renderP2(selL2);
+  });
+});
 
 function buildL2() {
-  const el = document.getElementById('p1');
+  const el = document.getElementById("p1");
   const GROUPS = [
-    { label:'Starters & Mains', keys:['Starters & Appetisers','Soups','Salads','Breads','Breakfast','Main Course','Curries & Gravies','Dal & Lentils'] },
-    { label:'Plates & Bowls',   keys:['Rice & Biryani','Noodles & Pasta','Momos & Dumplings','Burgers','Pizza','Rolls, Wraps & Sandwiches','Tacos & Mexican'] },
-    { label:'Street & Light',   keys:['Chaat & Street Food','Grills, Kebabs & Tandoor','Thali & Combos','Sides & Accompaniments','Healthy & Diet','Party Platters'] },
-    { label:'Beverages',        keys:['Beverages (Hot)','Beverages (Cold)','Juices & Smoothies'] },
-    { label:'Sweets & More',    keys:['Desserts','Kids Menu'] },
+    {label:"Starters & Mains", keys:["Starters & Appetisers","Soups","Salads","Breads","Breakfast","Main Course","Curries & Gravies","Dal & Lentils"]},
+    {label:"Plates & Bowls",   keys:["Rice & Biryani","Noodles & Pasta","Momos & Dumplings","Burgers","Pizza","Rolls, Wraps & Sandwiches","Tacos & Mexican"]},
+    {label:"Street & Light",   keys:["Chaat & Street Food","Grills, Kebabs & Tandoor","Thali & Combos","Sides & Accompaniments","Healthy & Diet","Party Platters"]},
+    {label:"Beverages",        keys:["Beverages (Hot)","Beverages (Cold)","Juices & Smoothies"]},
+    {label:"Sweets & More",    keys:["Desserts","Kids Menu"]},
   ];
-  let html = '';
+  const frag = document.createDocumentFragment();
   for (const g of GROUPS) {
     const keys = g.keys.filter(k => DATA[k]);
     if (!keys.length) continue;
-    html += `<div class="p1-section-label">${g.label}</div>`;
+    const lbl = document.createElement("div");
+    lbl.className = "p1-section-label";
+    lbl.textContent = g.label;
+    frag.appendChild(lbl);
     for (const l2 of keys) {
-      html += `<div class="l2-row" data-l2="${l2}" onclick="selectL2('${l2.replace(/'/g,"\\'")}',this)">
-        <span class="name">${l2}</span><span class="cnt">${L2_COUNTS[l2]}</span>
-      </div>`;
+      const row = document.createElement("div");
+      row.className = "l2-row";
+      row.innerHTML = "<span class=\"name\">" + l2 + "</span><span class=\"cnt\">" + L2_COUNTS[l2] + "</span>";
+      row.addEventListener("click", () => selectL2(l2, row));
+      frag.appendChild(row);
     }
   }
-  el.innerHTML = html;
+  el.appendChild(frag);
 }
 
 function selectL2(l2, el) {
-  document.querySelectorAll('.l2-row').forEach(r => r.classList.remove('active'));
-  el.classList.add('active');
-  selL2 = l2; selL3 = null; selL4 = null; selDiet = null;
+  document.querySelectorAll(".l2-row").forEach(r => r.classList.remove("active"));
+  el.classList.add("active");
+  selL2 = l2;
   renderP2(l2);
-  showP3Welcome2();
+  showP3Prompt();
+  if (isMob()) mobileTo("p2");
 }
 
 function renderP2(l2) {
-  const p2 = document.getElementById('p2');
+  const p2 = document.getElementById("p2");
+  const backBtn = document.getElementById("p2Back");
   const l3s = DATA[l2];
   const isBev = BEV_CATS.has(l2);
   const total = L2_COUNTS[l2];
   const l3Count = Object.keys(l3s).length;
-
-  let html = `<div class="p2-header">
-    <div class="p2-title">${l2}</div>
-    <div class="p2-sub">${total} items · ${l3Count} groups</div>
-  </div>`;
-
+  while (p2.lastChild && p2.lastChild !== backBtn) p2.removeChild(p2.lastChild);
+  if (!p2.contains(backBtn)) p2.insertBefore(backBtn, p2.firstChild);
+  const hdr = document.createElement("div");
+  hdr.className = "p2-header";
+  hdr.innerHTML = "<div class=\"p2-title\">" + l2 + "</div><div class=\"p2-sub\">" + total + " items &middot; " + l3Count + " groups</div>";
+  p2.appendChild(hdr);
   if (isBev) {
     for (const [l3, l4s] of Object.entries(l3s)) {
-      const items = l4s['__items__'] || [];
-      html += `<div class="l3-section">
-        <div class="l3-label">
-          <div class="l3-pip" style="background:var(--na)"></div>
-          <div class="l3-name na">${l3}</div>
-        </div>
-        <div class="l4-row" onclick="selectBevGroup('${l2.replace(/'/g,"\\'")}','${l3.replace(/'/g,"\\'")}',this)">
-          <span class="l4-name">${l3}</span>
-          <span class="l4-cnt">${items.length}</span>
-        </div>
-      </div>`;
+      const items = l4s["__items__"] || [];
+      const sec = document.createElement("div");
+      sec.className = "l3-section";
+      const lbl = document.createElement("div");
+      lbl.className = "l3-label";
+      lbl.innerHTML = "<div class=\"l3-pip\" style=\"background:var(--na)\"></div><div class=\"l3-name na\">" + l3 + "</div>";
+      sec.appendChild(lbl);
+      const row = document.createElement("div");
+      row.className = "l4-row";
+      row.innerHTML = "<span class=\"l4-name\">" + l3 + "</span><span class=\"l4-cnt\">" + items.length + "</span>";
+      row.addEventListener("click", () => selectBevGroup(l2, l3, row));
+      sec.appendChild(row);
+      p2.appendChild(sec);
     }
   } else {
-    const DORDER = ['Veg','Non-Veg','Egg'];
+    const DORDER = ["Veg","Non-Veg","Egg"];
     const keys = [...DORDER.filter(k=>l3s[k]), ...Object.keys(l3s).filter(k=>!DORDER.includes(k))];
     for (const l3 of keys) {
-      if (activeDiets.size > 0) {
-        const dk = DIET_MAP[l3];
-        if (dk && !activeDiets.has(dk)) continue;
-      }
+      if (activeDiets.size > 0) { const dk = DIET_MAP[l3]; if (dk && !activeDiets.has(dk)) continue; }
+      const dietCls = DIET_MAP[l3] || "na";
+      const sec = document.createElement("div");
+      sec.className = "l3-section";
+      const lbl = document.createElement("div");
+      lbl.className = "l3-label";
+      lbl.innerHTML = "<div class=\"l3-pip\" style=\"background:" + DIET_COLOR[dietCls] + "\"></div><div class=\"l3-name " + dietCls + "\">" + l3 + "</div>";
+      sec.appendChild(lbl);
       const l4map = l3s[l3];
-      const dietCls = DIET_MAP[l3] || 'na';
-      const dotColor = DIET_COLOR[dietCls];
-      html += `<div class="l3-section">
-        <div class="l3-label">
-          <div class="l3-pip" style="background:${dotColor}"></div>
-          <div class="l3-name ${dietCls}">${l3}</div>
-        </div>`;
       for (const [l4, dishes] of Object.entries(l4map).sort((a,b)=>a[0].localeCompare(b[0]))) {
-        html += `<div class="l4-row" onclick="selectL4('${l2.replace(/'/g,"\\'")}','${l3.replace(/'/g,"\\'")}','${l4.replace(/'/g,"\\'")}','${dietCls}',this)">
-          <span class="l4-name">${l4}</span>
-          <span class="l4-cnt">${dishes.length}</span>
-        </div>`;
+        const row = document.createElement("div");
+        row.className = "l4-row";
+        row.innerHTML = "<span class=\"l4-name\">" + l4 + "</span><span class=\"l4-cnt\">" + dishes.length + "</span>";
+        row.addEventListener("click", () => selectL4(l2, l3, l4, dietCls, row));
+        sec.appendChild(row);
       }
-      html += `</div>`;
+      p2.appendChild(sec);
     }
   }
-  p2.innerHTML = html;
 }
 
 function selectBevGroup(l2, l3, el) {
-  document.querySelectorAll('.l4-row').forEach(r => r.classList.remove('active'));
-  el.classList.add('active');
-  const items = DATA[l2][l3]['__items__'] || [];
-  renderP3Items(l3, l2, items, 'na');
+  document.querySelectorAll(".l4-row").forEach(r => r.classList.remove("active"));
+  el.classList.add("active");
+  const items = DATA[l2][l3]["__items__"] || [];
+  document.getElementById("p3BackLabel").textContent = l2;
+  renderP3Items(l3, l2, items, "na");
+  if (isMob()) mobileTo("p3");
 }
 
 function selectL4(l2, l3, l4, dietCls, el) {
-  document.querySelectorAll('.l4-row').forEach(r => r.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll(".l4-row").forEach(r => r.classList.remove("active"));
+  el.classList.add("active");
   const dishes = DATA[l2][l3][l4] || [];
+  document.getElementById("p3BackLabel").textContent = l2;
   renderP3Items(l4, l2, dishes, dietCls);
+  if (isMob()) mobileTo("p3");
 }
 
-function showP3Welcome2() {
-  document.getElementById('p3').innerHTML = `<div class="p3-welcome" style="padding:40px 32px">
-    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--cream2);margin-bottom:8px;font-style:italic">Select a sub-group →</div>
-    <div style="font-size:12px;color:var(--muted);line-height:1.7">Click any sub-group in the middle panel<br>to browse all items in that group.</div>
-  </div>`;
+function showP3Prompt() {
+  const p3 = document.getElementById("p3");
+  const backBtn = document.getElementById("p3Back");
+  while (p3.lastChild && p3.lastChild !== backBtn) p3.removeChild(p3.lastChild);
+  if (!p3.contains(backBtn)) p3.insertBefore(backBtn, p3.firstChild);
+  const d = document.createElement("div");
+  d.className = "p3-welcome";
+  d.style.cssText = "padding:40px 32px;justify-content:flex-start;padding-top:40px;";
+  const t = document.createElement("div");
+  t.style.cssText = "font-family:\"Playfair Display\",serif;font-size:19px;color:var(--cream2);margin-bottom:8px;font-style:italic;";
+  t.textContent = "Select a sub-group \u2192";
+  const s = document.createElement("div");
+  s.style.cssText = "font-size:14px;color:var(--muted);line-height:1.7;";
+  s.textContent = "Choose any sub-group in the panel to browse all items.";
+  d.appendChild(t);
+  d.appendChild(s);
+  p3.appendChild(d);
 }
 
 function renderP3Items(title, category, items, dietCls) {
-  const dotColor = DIET_COLOR[dietCls] || '#94a3b8';
-  const dietLabel = DIET_LABEL[dietCls] || 'General';
-  let html = `<div class="p3-header">
-    <div>
-      <div class="p3-title">${title}</div>
-      <div class="p3-meta">${category} · ${items.length} items</div>
-    </div>
-    <div class="p3-diet-badge ${dietCls}">
-      <div style="width:6px;height:6px;border-radius:50%;background:${dotColor}"></div>
-      ${dietLabel}
-    </div>
-  </div><div class="dish-grid">`;
-  for (let i=0; i<items.length; i++) {
-    html += `<div class="dish-card" style="animation-delay:${i*12}ms">
-      <div class="d-dot" style="background:${dotColor}"></div>
-      <div class="d-name">${items[i]}</div>
-    </div>`;
+  const dotColor = DIET_COLOR[dietCls] || "#94a3b8";
+  const dietLabel = DIET_LABEL[dietCls] || "General";
+  const p3 = document.getElementById("p3");
+  const backBtn = document.getElementById("p3Back");
+  while (p3.lastChild && p3.lastChild !== backBtn) p3.removeChild(p3.lastChild);
+  if (!p3.contains(backBtn)) p3.insertBefore(backBtn, p3.firstChild);
+  const hdr = document.createElement("div");
+  hdr.className = "p3-header";
+  hdr.innerHTML = "<div><div class=\"p3-title\">" + title + "</div><div class=\"p3-meta\">" + category + " &middot; " + items.length + " items</div></div>"
+    + "<div class=\"p3-diet-badge " + dietCls + "\"><div style=\"width:7px;height:7px;border-radius:50%;background:" + dotColor + "\"></div>" + dietLabel + "</div>";
+  p3.appendChild(hdr);
+  const grid = document.createElement("div");
+  grid.className = "dish-grid";
+  for (let i = 0; i < items.length; i++) {
+    const card = document.createElement("div");
+    card.className = "dish-card";
+    card.style.animationDelay = (i * 12) + "ms";
+    card.innerHTML = "<div class=\"d-dot\" style=\"background:" + dotColor + "\"></div><div class=\"d-name\">" + items[i] + "</div>";
+    grid.appendChild(card);
   }
-  html += `</div>`;
-  document.getElementById('p3').innerHTML = html;
-}
-
-function toggleDiet(diet, btn) {
-  if (activeDiets.has(diet)) { activeDiets.delete(diet); btn.classList.remove('on'); }
-  else { activeDiets.add(diet); btn.classList.add('on'); }
-  if (searchQ) doSearch(searchQ);
-  else if (selL2) renderP2(selL2);
+  p3.appendChild(grid);
+  p3.scrollTop = 0;
 }
 
 function doSearch(q) {
   searchQ = q.trim().toLowerCase();
-  const sp = document.getElementById('searchPanel');
-  const p2 = document.getElementById('p2');
-  const p3 = document.getElementById('p3');
-  const tag = document.getElementById('resultTag');
-
+  const sp = document.getElementById("searchPanel");
+  const tag = document.getElementById("resultTag");
+  const body = document.getElementById("bodyEl");
   if (!searchQ) {
-    sp.classList.remove('vis'); sp.style.display='none';
-    p2.style.display=''; p3.style.display='';
-    tag.classList.remove('vis'); tag.textContent='';
+    sp.classList.remove("vis");
+    body.classList.remove("mob-p2","mob-p3");
+    tag.classList.remove("vis"); tag.textContent = "";
     return;
   }
-
-  sp.style.display='block'; sp.classList.add('vis');
-  p2.style.display='none'; p3.style.display='none';
-
-  const results = []; const seen = new Set();
+  sp.classList.add("vis");
+  const results = [], seen = new Set();
   for (const [l2, l3s] of Object.entries(DATA)) {
     const isBev = BEV_CATS.has(l2);
     for (const [l3, l4s] of Object.entries(l3s)) {
       const dk = DIET_MAP[l3];
       if (!isBev && activeDiets.size > 0 && dk && !activeDiets.has(dk)) continue;
       if (isBev) {
-        const items = l4s['__items__'] || [];
+        const items = l4s["__items__"] || [];
         for (const item of items) {
-          const key = item+'|'+l3+'|'+l2;
+          const key = item+"|"+l3+"|"+l2;
           if (seen.has(key)) continue;
           if (item.toLowerCase().includes(searchQ) || l3.toLowerCase().includes(searchQ) || l2.toLowerCase().includes(searchQ)) {
-            seen.add(key); results.push({d:item, l2, l3, l4:l3, dk:'na'});
+            seen.add(key); results.push({d:item, l2, l3, l4:l3, dk:"na"});
           }
         }
       } else {
         for (const [l4, dishes] of Object.entries(l4s)) {
           for (const d of dishes) {
-            const key = d+'|'+l4;
+            const key = d+"|"+l4;
             if (seen.has(key)) continue;
             if (d.toLowerCase().includes(searchQ) || l4.toLowerCase().includes(searchQ) || l2.toLowerCase().includes(searchQ)) {
-              seen.add(key); results.push({d, l2, l3, l4, dk: dk||'na'});
+              seen.add(key); results.push({d, l2, l3, l4, dk: dk||"na"});
             }
           }
         }
       }
     }
   }
-
-  tag.textContent = `${results.length} results`; tag.classList.add('vis');
+  tag.textContent = results.length + " results"; tag.classList.add("vis");
+  sp.innerHTML = "";
   if (!results.length) {
-    sp.innerHTML = `<div class="sr-empty"><div style="font-size:32px;margin-bottom:10px">⊘</div><div style="font-size:13px">No matches for "<strong>${q}</strong>"</div></div>`;
+    const e = document.createElement("div");
+    e.className = "sr-empty";
+    e.innerHTML = "<div style=\"font-size:32px;margin-bottom:10px\">&#8856;</div><div style=\"font-size:15px\">No matches for <strong>" + q + "</strong></div>";
+    sp.appendChild(e);
     return;
   }
-  sp.innerHTML = `<div class="sr-title">Results for <em>"${q}"</em> <span style="font-size:12px;color:var(--muted);font-family:Outfit,sans-serif;font-weight:300">${results.length} items</span></div>`
-    + results.slice(0,300).map((r,i) => {
-      const dot = DIET_COLOR[r.dk]||'#94a3b8';
-      return `<div class="sr-item" style="animation-delay:${i*6}ms">
-        <div class="sr-dot" style="background:${dot}"></div>
-        <div class="sr-dish">${r.d}</div>
-        <div class="sr-path">
-          <span class="p">${r.l2}</span><span class="s"> › </span>
-          <span class="p">${r.l3}</span><span class="s"> › </span>
-          <span class="p">${r.l4}</span>
-        </div>
-      </div>`;
-    }).join('');
+  const ttl = document.createElement("div");
+  ttl.className = "sr-title";
+  ttl.innerHTML = "Results for <em>\"" + q + "\"</em> <span style=\"font-size:14px;color:var(--muted);font-weight:300;\">" + results.length + " items</span>";
+  sp.appendChild(ttl);
+  results.slice(0, 300).forEach((r, i) => {
+    const dot = DIET_COLOR[r.dk] || "#94a3b8";
+    const item = document.createElement("div");
+    item.className = "sr-item";
+    item.style.animationDelay = (i * 6) + "ms";
+    item.innerHTML = "<div class=\"sr-dot\" style=\"background:" + dot + "\"></div>"
+      + "<div class=\"sr-dish\">" + r.d + "</div>"
+      + "<div class=\"sr-path\"><span class=\"p\">" + r.l2 + "</span><span class=\"s\"> &rsaquo; </span><span class=\"p\">" + r.l3 + "</span><span class=\"s\"> &rsaquo; </span><span class=\"p\">" + r.l4 + "</span></div>";
+    sp.appendChild(item);
+  });
 }
 
 function resetHome() {
-  searchQ = ''; document.getElementById('searchBox').value = '';
-  activeDiets.clear(); document.querySelectorAll('.diet-btn').forEach(b => b.classList.remove('on'));
-  selL2=null; selL3=null; selL4=null; selDiet=null;
-  document.querySelectorAll('.l2-row').forEach(r => r.classList.remove('active'));
-  const sp = document.getElementById('searchPanel');
-  sp.classList.remove('vis'); sp.style.display='none'; sp.innerHTML='';
-  document.getElementById('p2').style.display='';
-  document.getElementById('p3').style.display='';
-  document.getElementById('resultTag').classList.remove('vis');
-  document.getElementById('resultTag').textContent='';
-  document.getElementById('p2').innerHTML = `<div class="p2-empty"><div class="arrow">←</div><p>Select a category<br>to explore sub-groups</p></div>`;
-  document.getElementById('p3').innerHTML = `<div class="p3-welcome">
-    <div class="big">The <em>complete</em> food &amp; beverage<br>catalog taxonomy for JioFood</div>
-    <div class="sub">A 5-level ontology covering 26 categories — including Beverages, Desserts &amp; Juices — 165 sub-groups, and 1,912 items structured for search, filtering, and platform-wide consistency.</div>
-    <div class="ontology-diagram">
-      <div class="od-level l1"><div class="od-tag">L 1</div><div class="od-name">Platform</div><div class="od-desc">Root node</div><div class="od-example">JioFood</div></div>
-      <div class="od-level l2"><div class="od-tag">L 2</div><div class="od-name">Category</div><div class="od-desc">Primary navigation</div><div class="od-example">Main Course · Beverages · Desserts</div></div>
-      <div class="od-level l3"><div class="od-tag">L 3</div><div class="od-name">Type / Diet</div><div class="od-desc">Diet or sub-type</div><div class="od-example">Veg · Non-Veg · Iced Coffee · Lassi</div></div>
-      <div class="od-level l4"><div class="od-tag">L 4</div><div class="od-name">Sub-Group</div><div class="od-desc">Protein, cuisine or style</div><div class="od-example">Paneer Dishes · Mocktails · Indian Sweets</div></div>
-      <div class="od-level l5"><div class="od-tag">L 5</div><div class="od-name">Item</div><div class="od-desc">Orderable menu item</div><div class="od-example">Butter Chicken · Mango Lassi · Gulab Jamun</div></div>
-    </div>
-  </div>`;
+  searchQ = ""; document.getElementById("searchBox").value = "";
+  activeDiets.clear(); document.querySelectorAll(".diet-btn").forEach(b => b.classList.remove("on"));
+  selL2 = null; document.querySelectorAll(".l2-row").forEach(r => r.classList.remove("active"));
+  document.getElementById("searchPanel").classList.remove("vis");
+  document.getElementById("resultTag").classList.remove("vis");
+  document.getElementById("resultTag").textContent = "";
+  document.getElementById("bodyEl").classList.remove("mob-p2","mob-p3");
+  const p2 = document.getElementById("p2");
+  const backBtn2 = document.getElementById("p2Back");
+  while (p2.lastChild && p2.lastChild !== backBtn2) p2.removeChild(p2.lastChild);
+  if (!p2.contains(backBtn2)) p2.insertBefore(backBtn2, p2.firstChild);
+  const e2 = document.createElement("div");
+  e2.className = "p2-empty";
+  e2.innerHTML = "<div class=\"arrow\">&#8592;</div><p>Select a category<br>to explore sub-groups</p>";
+  p2.appendChild(e2);
+  const p3 = document.getElementById("p3");
+  const backBtn3 = document.getElementById("p3Back");
+  while (p3.lastChild && p3.lastChild !== backBtn3) p3.removeChild(p3.lastChild);
+  if (!p3.contains(backBtn3)) p3.insertBefore(backBtn3, p3.firstChild);
+  const welcome = document.createElement("div");
+  welcome.className = "p3-welcome";
+  welcome.innerHTML = "<div class=\"big\">The <em>complete</em> food &amp; beverage<br>catalog taxonomy for JioFood</div>"
+    + "<div class=\"sub\">26 categories &middot; 165 sub-groups &middot; 1,912 items &mdash; including Beverages, Desserts &amp; Juices.</div>"
+    + "<div class=\"ontology-diagram\">"
+    + "<div class=\"od-level l1\"><div class=\"od-tag\">L 1</div><div class=\"od-name\">Platform</div><div class=\"od-desc\">Root node</div><div class=\"od-example\">JioFood</div></div>"
+    + "<div class=\"od-level l2\"><div class=\"od-tag\">L 2</div><div class=\"od-name\">Category</div><div class=\"od-desc\">Primary navigation</div><div class=\"od-example\">Main Course &middot; Beverages</div></div>"
+    + "<div class=\"od-level l3\"><div class=\"od-tag\">L 3</div><div class=\"od-name\">Type / Diet</div><div class=\"od-desc\">Diet or sub-type</div><div class=\"od-example\">Veg &middot; Non-Veg &middot; Egg</div></div>"
+    + "<div class=\"od-level l4\"><div class=\"od-tag\">L 4</div><div class=\"od-name\">Sub-Group</div><div class=\"od-desc\">Cuisine or style</div><div class=\"od-example\">Paneer Dishes &middot; Mocktails</div></div>"
+    + "<div class=\"od-level l5\"><div class=\"od-tag\">L 5</div><div class=\"od-name\">Item</div><div class=\"od-desc\">Orderable item</div><div class=\"od-example\">Butter Chicken &middot; Mango Lassi</div></div>"
+    + "</div>";
+  p3.appendChild(welcome);
 }
 
 buildL2();
